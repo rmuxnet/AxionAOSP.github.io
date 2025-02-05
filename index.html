@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AxionAOSP - Minimal and fast android operating system</title>
+  <link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500&display=swap" rel="stylesheet" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet" />
+  <script src="
+    https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/js/splide.min.js
+    "></script>
+  <link href="
+    https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css
+    " rel="stylesheet" />
+  <link rel="stylesheet" href="css/main.css" />
+</head>
+
+<body>
+  <nav>
+    <div class="logo">AxionAOSP</div>
+    <div class="mobile-nav"><i class="fas fa-bars"></i></div>
+    <ul class="nav-links">
+      <li><a href="#screenshots">Screenshots</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#changelog">Changelog</a></li>
+      <li><a href="#community">Community</a></li>
+      <li><a href="#faq">FAQ</a></li>
+    </ul>
+  </nav>
+
+  <header class="header">
+    <video autoplay muted loop playsinline class="header-video">
+      <source src="https://www.quantamagazine.org/wp-content/uploads/2020/03/Axion_Lede_1300wide.mp4"
+        type="video/mp4" />
+    </video>
+    <div class="header-inner">
+      <div class="header-text">
+        <h1>Welcome to the "Axion"</h1>
+        <p>
+          Minimal and fast. Less
+          <b><i class="fas fa-spinner fa-spin"></i></b> , more
+          <b><i>SPEED</i></b>.
+        </p>
+        <a href="#download" class="btn-primary">Download Now</a>
+      </div>
+      <div class="header-mockup">
+        <img src="img/screenshot5.png" alt="Mockup" />
+      </div>
+    </div>
+  </header>
+
+  <header class="header reverse">
+    <div class="header-inner">
+      <div class="header-text">
+        <h1>Give your old Android device a second life.</h1>
+        <p>
+          AxionOS is optimized to run seamlessly on older Android devices,
+          helping you extend their lifespan. Save money on upgrades while
+          contributing to a greener planet by reducing e-waste.
+        </p>
+      </div>
+      <div class="header-mockup">
+        <img src="img/screenshot2.png" alt="Mockup" />
+      </div>
+    </div>
+  </header>
+
+  <section id="screenshots">
+    <h2>Screenshots</h2>
+    <section id="image-carousel" class="splide" aria-label="Screenshots">
+      <div class="splide__track">
+        <ul class="splide__list">
+        </ul>
+      </div>
+    </section>
+  </section>
+
+  <section id="about">
+    <h2>About AxionOS</h2>
+    <div class="content-card">
+      <p>
+        AxionOS an operating system based from LineageOS inspired by ProtonAOSP.
+        <br>
+        Much like ProtonAOSP, AxionOS focuses on delivering a fast, clean, and unique Android experience.
+        <br>
+        AxionOS places a strong emphasis on performance and stability as its core priorities.
+      </p>
+    </div>
+  </section>
+
+  <section id="changelog">
+    <h2>Changelog</h2>
+    <div class="content-card" id="changelog-list"></div>
+  </section>
+
+  <section id="community">
+    <h2>Join us on Telegram!</h2>
+    <div class="content-card">
+      <p>
+        Connect with fellow enthusiasts and developers on our Telegram group.
+        Share your feedback, get support, and be a part of the AxionOS
+        revolution.
+      </p>
+      <a href="https://t.me/AxionAOSPUpdates" target="_blank" class="btn-primary">Join Now</a>
+    </div>
+  </section>
+
+  <section id="faq">
+    <h2>Frequently Asked Questions</h2>
+    <div class="content-card">
+      <div class="faq-item" id="faq1">
+        <h3>Why is AxionAOSP a performance-oriented ROM?</h3>
+        <p>
+          AxionAOSP incorporates various performance optimizations from
+          <a href="https://protonaosp.org/performance">ProtonAOSP</a>, along with our own efficiency tweaks to reduce
+          system resource usage.
+        </p>
+        <p><br>Some key enhancements include:</p>
+        <p>
+          - Optimized notification icon and image memory usage –
+          <a
+            href="https://github.com/AxionAOSP/android_frameworks_base/commit/11f6908793ef52cf8f4afeb0cbd7d42e130201a9">commit</a>
+          <br>
+          - Compressed and optimized media artwork album art –
+          <a
+            href="https://github.com/AxionAOSP/android_frameworks_base/commit/db7483d2ba0648f1af949e07066b0475e4a415d8">commit</a>
+          <br>
+          - Lowered snapshot memory usage –
+          <a
+            href="https://github.com/AxionAOSP/android_frameworks_base/commit/cfc0ec4244df202ed4489d07466f9cb393d65bb3">commit</a>
+          <br>
+          - Lowered max broadcast limit –
+          <a
+            href="https://github.com/AxionAOSP/android_frameworks_base/commit/9e29ecd09a65097a93c31cf2b167a97a6b8200f8">commit</a>
+          <br>
+          - Reduced job concurrency limit –
+          <a
+            href="https://github.com/AxionAOSP/android_frameworks_base/commit/e798dcc9bdf7b7abc1a81b896eee9e59f29e4b8b">commit</a>
+          <br>
+          - Adjusted max process limits for legacy devices –
+          <a
+            href="https://github.com/AxionAOSP/android_frameworks_base/commit/bce376fc56df3bcc837c0e5cb0e3a5affa89c761">commit</a>
+          <br>
+          - Optimized storage management for low-end devices:
+          <a
+            href="https://github.com/AxionAOSP/android_frameworks_base/commit/54b4e0b104626ebba8a25818577651085605b698">commit</a>,
+          <a
+            href="https://github.com/AxionAOSP/android_frameworks_base/commit/94deb5dd28c99c6a938566141b614297a3826194">commit</a>
+        </p>
+        <p>
+          <br>
+          Additionally, we avoid adding features unless they are verified to have no negative impact on memory or
+          performance.
+        </p>
+      </div>
+
+      <div class="faq-item">
+        <h3>Can you add Feature XX?</h3>
+        <p>
+          We welcome suggestions, but features will only be added if they are useful and non-intrusive.
+        </p>
+        <p>
+          <br>
+          Example of features that will not be added: <br>
+          - Proprietary features (e.g., Pixel Framework) <br>
+          - Resource-intensive features <br>
+          - Features that may introduce memory leaks <br>
+          - Spoofing of play intergrity and google apps
+        </p>
+      </div>
+
+      <div class="faq-item">
+        <h3>Is battery life good on AxionAOSP?</h3>
+        <p>
+          Battery life is subjective and depends on factors such as kernel, usage patterns, and device configuration.
+          However,
+          AxionAOSP includes optimizations aimed at maximizing efficiency. See
+          <a href="#faq" onclick="expandFaqItem('faq1');">Why is AxionAOSP a performance-oriented ROM?</a> for details.
+        </p>
+      </div>
+
+      <div class="faq-item">
+        <h3>Why isn't Play Integrity passing?</h3>
+        <p>
+          Like LineageOS, we choose not to spoof Play Integrity or modify apps to pass Google's certification checks.
+        </p>
+      </div>
+
+      <div class="faq-item">
+        <h3>Where are the customizations?</h3>
+        <p>
+          AxionAOSP is not a customization-focused ROM. If extensive customization is a priority for you, other ROMs may
+          better suit your needs.
+        </p>
+      </div>
+
+      <div class="faq-item">
+        <h3>How do I install AxionAOSP?</h3>
+        <p>
+          Follow our detailed installation guide on the documentation page. Ensure your device is supported before
+          proceeding.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section id="download">
+    <h2>Get AxionOS</h2>
+    <div class="content-card">
+      <p>
+        Download the latest version of AxionOS and experience the performance
+        revolution firsthand.
+      </p>
+      <a href="https://www.pling.com/p/2259442/" class="btn-primary">Download Now</a>
+    </div>
+  </section>
+
+  <footer>
+    <p>&copy; 2025 AxionOS. All Rights Reserved.</p>
+  </footer>
+
+  <script src="js/changelog.js"></script>
+  <script src="js/faq.js"></script>
+  <script src="js/nav.js"></script>
+  <script src="js/screenshot.js"></script>
+  <script src="js/main.js"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,49 @@
+@media (max-width: 768px) {
+  .header h1 {
+    font-size: 3rem;
+  }
+
+  .header p {
+    font-size: 1.2rem;
+  }
+
+  nav ul {
+    display: none;
+  }
+
+  .mobile-nav {
+    display: block;
+  }
+
+  .header-inner {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .header-text,
+  .header-mockup {
+    max-width: 100%;
+    text-align: center;
+  }
+
+  .header-mockup {
+    margin-top: 0px;
+  }
+
+  .header-mockup img {
+    max-width: 0px;
+    height: auto;
+  }
+
+  .changelog-item {
+    padding: 15px;
+  }
+
+  .changelog-title {
+    font-size: 1.6rem;
+  }
+
+  .changelog-description {
+    font-size: 1rem;
+  }
+}
