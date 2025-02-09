@@ -1,4 +1,4 @@
-document.querySelectorAll(".faq-item h3").forEach((item) => {
+document.querySelectorAll(".faq-item h3, .feature-item h3").forEach((item) => {
     item.addEventListener("click", () => {
         item.parentNode.classList.toggle("active");
     });
