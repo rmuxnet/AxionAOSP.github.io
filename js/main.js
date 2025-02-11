@@ -5,6 +5,9 @@ document.querySelector(".logo").addEventListener("click", function (e) {
 
 document.addEventListener("DOMContentLoaded", function () {
   initScreenshot();
-  createChangelogItems();
-  renderFaqs();
+  document.querySelectorAll('.changelog-item h3').forEach(item => {
+    item.addEventListener('click', () => {
+      item.parentNode.classList.toggle('active');
+    });
+  });
 });

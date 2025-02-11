@@ -1,39 +1,24 @@
-#changelog {
-  padding: 60px 20px;
-}
-
 .changelog-item {
-  background-color: #1e1e1e;
-  padding: 20px;
-  border-radius: 12px;
-  margin-bottom: 20px;
-  transition: background-color 0.3s ease;
-}
-
-.changelog-item:hover {
-  background-color: #333;
-}
-
-.changelog-title {
-  font-size: 1.8rem;
-  font-weight: 500;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  border-bottom: 1px solid transparent;
   cursor: pointer;
-  margin-bottom: 10px;
-  text-align: center;
 }
 
-.changelog-date {
-  font-size: 1.8rem;
-  color: #c9fdd3;
-  font-style: italic;
-  margin-left: 10px;
+.changelog-item h3 {
+  margin: 0;
+  padding: 1rem;
 }
 
-.changelog-description {
-  font-size: 1.1rem;
-  color: #bbb;
-  line-height: 1.5;
+.changelog-content {
+  display: none;
+  padding: 0 1rem 1rem;
+}
+
+.changelog-item.active .changelog-content {
+  display: block;
+}
+
+hr {
+  background-color: transparent;
+  height: 1px;
+  border: 0;
 }
