@@ -41,4 +41,10 @@ document.addEventListener('DOMContentLoaded', function () {
       changelogList.innerHTML = html;
     })
     .catch(error => console.error(error));
+
+  document.querySelectorAll('.changelog-item h3').forEach(item => {
+    item.addEventListener('click', () => {
+      item.parentNode.classList.toggle('active');
+    });
+  });
 });
