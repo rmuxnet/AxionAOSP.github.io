@@ -46,4 +46,13 @@
   .changelog-description {
     font-size: 1rem;
   }
+
+  .header-game img {
+    max-width: 100%;
+  }
+
+  .nav-links{
+    background: rgba(49,49,49, 1) !important;
+    padding-right: 32px !important;
+  }
 }
