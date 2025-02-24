@@ -2,10 +2,22 @@
   --md_accent_color: #c9fdd3;
 }
 
+strong{
+  color: var(--md_accent_color);
+}
+
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+}
+
+.highlight {
+  color: var(--md_accent_color);
+}
+
+p {
+  font-family: 'Space Grotesk', sans-serif;
 }
 
 body {
@@ -165,11 +177,25 @@ section h2::after {
   max-width: 50%;
 }
 
+.header-text-game {
+  text-align: center;
+  max-width: 50%;
+}
+
 .header-mockup img {
   max-width: 240px;
   height: auto;
 }
 
+.header-game img {
+  max-width: 100%;
+  height: auto;
+}
+
 .header.reverse .header-inner {
   flex-direction: row-reverse;
+}
+
+.header.center .header-inner {
+  flex-direction: column;
 }
