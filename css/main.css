@@ -108,4 +108,8 @@
     .user_feedback {
         min-width: 90%;
     }
+
+    #joinTelegram {
+        margin-right: 0px;
+    }
 }

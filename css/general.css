@@ -174,12 +174,11 @@ section h2::after {
 
 .header-text {
   text-align: left;
-  max-width: 50%;
+  max-width: 60%;
 }
 
 .header-text-game {
   text-align: center;
-  max-width: 50%;
 }
 
 .header-mockup img {
@@ -188,7 +187,7 @@ section h2::after {
 }
 
 .header-game img {
-  max-width: 100%;
+  max-width: 60%;
   height: auto;
 }
 
