@@ -57,3 +57,55 @@
 .feature-item:has(h3:empty) {
     display: none;
 }
+
+#joinTelegram {
+    margin-right: 20px;
+}
+
+#scroll-container {
+    display: flex;
+    gap: 16px;
+    overflow-x: auto;
+    white-space: nowrap;
+    padding: 10px;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+#scroll-container::-webkit-scrollbar {
+    display: none;
+}
+
+.user_feedback {
+    flex: 0 0 auto;
+    min-width: 280px;
+    max-width: 300px;
+    background: #1e1e1e;
+    color: #fff;
+    padding: 16px;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    font-family: "Space Grotesk", sans-serif;
+    scroll-snap-align: start;
+    transition: transform 0.3s ease;
+    white-space: normal;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    text-align: left;
+}
+
+.user_feedback:hover {
+    transform: scale(1.05);
+}
+
+@media (max-width: 600px) {
+    #scroll-container {
+        justify-content: flex-start;
+    }
+
+    .user_feedback {
+        min-width: 90%;
+    }
+}

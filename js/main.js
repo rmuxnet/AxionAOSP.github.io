@@ -5,4 +5,5 @@ document.querySelector(".logo").addEventListener("click", function (e) {
 
 document.addEventListener("DOMContentLoaded", function () {
   initScreenshot();
+  initDragScroll('#scroll-container');
 });
