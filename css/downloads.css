@@ -92,3 +92,40 @@
 .download-link:hover {
   background-color: #0056b3;
 }
+
+/* Dark Mode Styles */
+@media (prefers-color-scheme: dark) {
+  .downloads-section {
+    background: #121212;
+  }
+
+  .brand-filters .filter-btn {
+    background-color: #1E88E5;
+    color: #fff;
+  }
+
+  .brand-filters .filter-btn:hover,
+  .brand-filters .filter-btn.active {
+    background-color: #1565C0;
+  }
+
+  .download-item {
+    background: #1E1E1E;
+    border: 1px solid #333;
+    box-shadow: 0 2px 8px rgba(255, 255, 255, 0.1);
+  }
+
+  .download-info h3,
+  .download-info p {
+    color: #E0E0E0;
+  }
+
+  .download-link {
+    background-color: #1E88E5;
+    color: #fff;
+  }
+
+  .download-link:hover {
+    background-color: #1565C0;
+  }
+}
