@@ -1,71 +1,148 @@
-/* downloads.css - Updated for #c9fdd3 buttons */
+/* downloads.css - Full corrected version */
+:root {
+    --primary-green: #c9fdd3;       /* Main button color */
+    --button-text: #1a472a;         /* Dark green text */
+    --hover-green: #a0f7b2;         /* Hover state */
+    --active-green: #8cf0a1;        /* Active state */
+    --card-bg: #000000;             /* Card background */
+    --text-primary: #2d3748;        /* Primary text color */
+    --text-secondary: #4a5568;      /* Secondary text color */
+    --filter-active: #c9fdd3;       /* Active filter color */
+}
 
-/* Download Links */
-.download-info .download-link {
-    display: inline-block;
-    padding: 12px 32px;
-    background-color: #c9fdd3;  /* Primary button color */
-    color: #1a472a !important;  /* Dark green text for contrast */
-    border-radius: 8px;
-    text-decoration: none;
+/* Downloads Section Container */
+.downloads-section {
+    padding: 2rem 1rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* Section Heading */
+.downloads-section h2 {
+    font-size: 2.5rem;
+    color: var(--text-primary);
+    margin-bottom: 2rem;
+    text-align: center;
+}
+
+/* Brand Filters Grid */
+.brand-filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    justify-content: center;
+    margin-bottom: 2rem;
+}
+
+/* Filter Buttons */
+.filter-btn {
+    padding: 0.75rem 1.5rem;
+    border-radius: 2rem;
+    border: none;
+    background: #f0f0f0;
+    color: var(--text-primary);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-weight: 500;
+}
+
+.filter-btn.active {
+    background: var(--filter-active);
+    color: var(--button-text);
     font-weight: 600;
-    font-size: 1rem;
-    transition: all 0.2s ease-in-out;
-    border: 2px solid transparent;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    margin-top: 12px;
 }
 
-.download-info .download-link:hover {
-    background-color: #a0f7b2;  /* 20% darker hover state */
-    transform: translateY(-2px);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+/* Downloads Grid Layout */
+.downloads-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1.5rem;
+    padding: 1rem;
 }
 
-.download-info .download-link:active {
-    transform: translateY(0);
-    background-color: #8cf0a1;  /* 30% darker active state */
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-/* Card Styling */
+/* Device Card Styling */
 .download-item {
-    background: #ffffff;
-    border-radius: 12px;
+    background: var(--card-bg);
+    border-radius: 1rem;
     overflow: hidden;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
     transition: transform 0.2s ease;
 }
 
 .download-item:hover {
     transform: translateY(-5px);
+    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.1);
 }
 
-/* Filter Buttons */
-.filter-btn {
-    background: #f0f0f0;
-    color: #333;
-    border: none;
-    padding: 8px 16px;
-    border-radius: 20px;
-    margin: 4px;
-    transition: all 0.2s ease;
+/* Card Image */
+.download-item img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-bottom: 3px solid var(--primary-green);
 }
 
-.filter-btn.active {
-    background: #c9fdd3;
-    color: #1a472a;
+/* Card Content */
+.download-info {
+    padding: 1.5rem;
+}
+
+.download-info h3 {
+    color: var(--text-primary);
+    margin-bottom: 1rem;
+    font-size: 1.25rem;
+}
+
+.download-info p {
+    color: var(--text-secondary);
+    margin-bottom: 0.5rem;
+    font-size: 0.9rem;
+}
+
+/* Download Button */
+.download-link {
+    display: inline-block;
+    width: 100%;
+    padding: 0.75rem;
+    background: var(--primary-green);
+    color: var(--button-text) !important;
+    border-radius: 0.5rem;
+    text-decoration: none;
+    text-align: center;
     font-weight: 600;
+    transition: all 0.2s ease;
+    margin-top: 1rem;
+    border: 2px solid transparent;
+}
+
+.download-link:hover {
+    background: var(--hover-green);
+    transform: translateY(-2px);
+}
+
+.download-link:active {
+    background: var(--active-green);
+    transform: translateY(0);
 }
 
 /* Responsive Design */
 @media (max-width: 768px) {
-    .download-info .download-link {
-        padding: 10px 24px;
-        font-size: 0.9rem;
+    .downloads-grid {
+        grid-template-columns: 1fr;
     }
     
-    .download-item {
-        margin-bottom: 1.5rem;
+    .download-item img {
+        height: 180px;
     }
+    
+    .filter-btn {
+        padding: 0.5rem 1rem;
+        font-size: 0.9rem;
+    }
+}
+
+/* Codename & Maintainer Styling */
+.download-info strong {
+    color: var(--text-primary);
+    font-weight: 600;
 }
