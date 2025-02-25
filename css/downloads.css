@@ -1,36 +1,57 @@
-.downloads-section {
-  padding: 2em 0;
-  background: #f9f9f9;
+/* Optional: Styling for the filter buttons */
+.brand-filters {
   text-align: center;
+  margin: 1rem 0;
+}
+.brand-filters .filter-btn {
+  margin: 0 0.5rem;
+  padding: 0.5rem 1rem;
+  background: #ddd;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+.brand-filters .filter-btn.active,
+.brand-filters .filter-btn:hover {
+  background: #007BFF;
+  color: #fff;
 }
 
+/* Downloads Section Wrapper */
+.downloads-section {
+  padding: 2rem 1rem;
+  background: #f9f9f9;
+}
+
+/* Grid container for the cards */
 .downloads-grid {
   display: flex;
   flex-wrap: wrap;
-  gap: 1.5em;
+  gap: 1rem;
   justify-content: center;
-  margin-top: 1em;
 }
 
+/* Individual card */
 .download-item {
   background: #fff;
   border: 1px solid #ddd;
-  padding: 1em;
-  width: 300px;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  border-radius: 6px;
+  padding: 1rem;
+  width: 280px; /* Adjust as needed */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  text-align: center;
 }
 
-.download-item img {
-  max-width: 100%;
-  height: auto;
-}
-
-.btn-download {
+/* Download link button */
+.download-link {
   display: inline-block;
-  margin-top: 1em;
-  padding: 0.5em 1em;
+  margin-top: 1rem;
+  padding: 0.5rem 1rem;
   background: #007BFF;
   color: #fff;
   text-decoration: none;
   border-radius: 4px;
+}
+.download-link:hover {
+  background: #0056b3;
 }
