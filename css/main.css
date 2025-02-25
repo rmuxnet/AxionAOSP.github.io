@@ -66,12 +66,13 @@
     display: flex;
     gap: 16px;
     overflow-x: auto;
-    white-space: nowrap;
     padding: 10px;
     scroll-snap-type: x mandatory;
     scrollbar-width: none;
-    justify-content: center;
+    justify-content: flex-start;
     margin-top: 20px;
+    max-width: 100%;
+    box-sizing: border-box;
 }
 
 #scroll-container::-webkit-scrollbar {
@@ -80,9 +81,8 @@
 
 .user_feedback {
     flex: 0 0 auto;
-    min-width: 280px;
-    max-width: 300px;
-    background: #1e1e1e;
+    max-width: 250px;
+    background: #333030;
     color: #fff;
     padding: 16px;
     border-radius: 12px;
@@ -94,6 +94,8 @@
     word-wrap: break-word;
     overflow-wrap: break-word;
     text-align: left;
+    flex-shrink: 0;
+    box-sizing: border-box;
 }
 
 .user_feedback:hover {
