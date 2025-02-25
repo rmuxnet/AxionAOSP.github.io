@@ -56,3 +56,17 @@
     padding-right: 32px !important;
   }
 }
+
+@media (max-width: 600px) {
+  #scroll-container {
+      justify-content: flex-start;
+  }
+
+  .user_feedback {
+      min-width: 90%;
+  }
+
+  #joinTelegram {
+      margin-right: 0px;
+  }
+}
