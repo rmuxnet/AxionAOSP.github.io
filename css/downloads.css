@@ -1,57 +1,94 @@
-/* Optional: Styling for the filter buttons */
-.brand-filters {
-  text-align: center;
-  margin: 1rem 0;
-}
-.brand-filters .filter-btn {
-  margin: 0 0.5rem;
-  padding: 0.5rem 1rem;
-  background: #ddd;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-}
-.brand-filters .filter-btn.active,
-.brand-filters .filter-btn:hover {
-  background: #007BFF;
-  color: #fff;
-}
-
-/* Downloads Section Wrapper */
+/* Downloads Section */
 .downloads-section {
-  padding: 2rem 1rem;
+  padding: 3rem 0;
   background: #f9f9f9;
 }
 
-/* Grid container for the cards */
+.downloads-section h2 {
+  text-align: center;
+  font-size: 2.5rem;
+  margin-bottom: 2rem;
+}
+
+/* Brand Filters */
+.brand-filters {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.brand-filters .filter-btn {
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 4px;
+  background-color: #007BFF;
+  color: #fff;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.brand-filters .filter-btn:hover,
+.brand-filters .filter-btn.active {
+  background-color: #0056b3;
+}
+
+/* Device Cards */
 .downloads-grid {
   display: flex;
   flex-wrap: wrap;
-  gap: 1rem;
   justify-content: center;
+  gap: 2rem;
 }
 
-/* Individual card */
 .download-item {
   background: #fff;
   border: 1px solid #ddd;
-  border-radius: 6px;
-  padding: 1rem;
-  width: 280px; /* Adjust as needed */
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  text-align: center;
+  border-radius: 8px;
+  width: 380px; /* Slightly larger width for better image fit */
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  transition: transform 0.3s;
 }
 
-/* Download link button */
+.download-item:hover {
+  transform: translateY(-5px);
+}
+
+.download-item img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.download-info {
+  padding: 1rem;
+  text-align: left;
+}
+
+.download-info h3 {
+  font-size: 1.8rem;
+  margin: 0.5rem 0;
+}
+
+.download-info p {
+  margin: 0.25rem 0;
+  font-size: 1rem;
+}
+
 .download-link {
   display: inline-block;
   margin-top: 1rem;
-  padding: 0.5rem 1rem;
-  background: #007BFF;
+  padding: 0.75rem 1.5rem;
+  background-color: #007BFF;
   color: #fff;
   text-decoration: none;
   border-radius: 4px;
+  transition: background 0.3s;
 }
+
 .download-link:hover {
-  background: #0056b3;
+  background-color: #0056b3;
 }
