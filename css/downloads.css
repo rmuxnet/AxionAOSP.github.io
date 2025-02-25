@@ -1,105 +1,71 @@
-/* downloads.css - Updated to match AxionAOSP website styling */
-/* Version 1.1 - Color-matched buttons and interactions */
+/* downloads.css - Updated for #c9fdd3 buttons */
 
-/* Base Styles */
-.downloads {
-    padding: 2rem 0;
+/* Download Links */
+.download-info .download-link {
+    display: inline-block;
+    padding: 12px 32px;
+    background-color: #c9fdd3;  /* Primary button color */
+    color: #1a472a !important;  /* Dark green text for contrast */
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 1rem;
+    transition: all 0.2s ease-in-out;
+    border: 2px solid transparent;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-top: 12px;
 }
 
-.downloads .card {
-    border: none;
-    border-radius: 15px;
-    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
-    transition: transform 0.3s ease;
+.download-info .download-link:hover {
+    background-color: #a0f7b2;  /* 20% darker hover state */
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.download-info .download-link:active {
+    transform: translateY(0);
+    background-color: #8cf0a1;  /* 30% darker active state */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Card Styling */
+.download-item {
     background: #ffffff;
-    margin-bottom: 1.5rem;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    transition: transform 0.2s ease;
 }
 
-.downloads .card:hover {
+.download-item:hover {
     transform: translateY(-5px);
 }
 
-.downloads .card-title {
-    color: #2c3e50;
-    font-size: 1.5rem;
-    font-weight: 700;
-    margin-bottom: 1.2rem;
+/* Filter Buttons */
+.filter-btn {
+    background: #f0f0f0;
+    color: #333;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 20px;
+    margin: 4px;
+    transition: all 0.2s ease;
 }
 
-/* Download Buttons - Updated to match site theme */
-.downloads .card-body a {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    padding: 12px 32px;
-    background: linear-gradient(135deg, var(--primary-accent), var(--primary-accent-dark));
-    color: #fff !important;
-    border-radius: 10px;
-    text-decoration: none;
+.filter-btn.active {
+    background: #c9fdd3;
+    color: #1a472a;
     font-weight: 600;
-    font-size: 1.1rem;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    border: 2px solid transparent;
-    box-shadow: 0 4px 6px rgba(50, 50, 93, 0.11), 0 1px 3px rgba(0, 0, 0, 0.08);
-    margin: 0.5rem 0;
-    width: 100%;
-    max-width: 280px;
-    text-align: center;
-}
-
-.downloads .card-body a:hover {
-    background: linear-gradient(135deg, var(--primary-accent-dark), var(--primary-accent-darker));
-    transform: translateY(-2px);
-    box-shadow: 0 7px 14px rgba(50, 50, 93, 0.2), 0 3px 6px rgba(0, 0, 0, 0.08);
-    border-color: rgba(255, 255, 255, 0.15);
-}
-
-.downloads .card-body a:active {
-    transform: translateY(0);
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
-
-/* File Size Text */
-.downloads .file-size {
-    color: #6c757d;
-    font-size: 0.9rem;
-    margin-top: 0.5rem;
-    display: block;
-}
-
-/* Device Type Badges */
-.device-badge {
-    display: inline-block;
-    padding: 0.35em 0.65em;
-    font-size: 0.75em;
-    font-weight: 700;
-    line-height: 1;
-    text-align: center;
-    white-space: nowrap;
-    vertical-align: baseline;
-    border-radius: 0.25rem;
-    background-color: var(--badge-accent);
-    color: white;
-    margin-left: 0.5rem;
 }
 
 /* Responsive Design */
 @media (max-width: 768px) {
-    .downloads .card-body a {
+    .download-info .download-link {
         padding: 10px 24px;
-        font-size: 1rem;
-        max-width: 100%;
+        font-size: 0.9rem;
     }
     
-    .downloads .card-title {
-        font-size: 1.3rem;
+    .download-item {
+        margin-bottom: 1.5rem;
     }
-}
-
-/* CSS Variables - Update these to match your site's colors */
-:root {
-    --primary-accent: #7267f0;  /* Main accent color */
-    --primary-accent-dark: #5d52d1;  /* 10% darker */
-    --primary-accent-darker: #483da3;  /* 20% darker */
-    --badge-accent: #32b357;  /* Success color for badges */
 }
