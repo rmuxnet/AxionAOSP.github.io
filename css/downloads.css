@@ -128,4 +128,13 @@
   .download-link:hover {
     background-color: #1565C0;
   }
+/* Hide all device cards initially */
+.download-item {
+  display: none;
+}
+
+/* Show device cards when their brand is selected */
+.download-item.active {
+  display: block;
+}
 }
