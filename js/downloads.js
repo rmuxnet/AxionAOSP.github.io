@@ -1,65 +1,98 @@
-// js/downloads.js - Fixed version
+// js/downloads.js - Optimized version
 document.addEventListener('DOMContentLoaded', function() {
-    // Load device images from LineageOS wiki
+    // Configuration
+    const config = {
+        imageBaseUrl: 'https://wiki.lineageos.org/images/devices/',
+        fallbackImage: 'https://bluemoji.io/cdn-proxy/646218c67da47160c64a84d5/66b3ea6b437be789ded213fd_45.png',
+        loadingClass: 'loading',
+        activeFilterClass: 'active'
+    };
+
+    // Image loader with retry logic
     const loadDeviceImages = () => {
         document.querySelectorAll('.download-item').forEach(item => {
-            const codenameElement = item.querySelector('p strong:contains("Codename:")').nextSibling;
-            const codename = codenameElement.textContent.trim().toLowerCase();
+            const container = item.querySelector('.image-container');
             const img = item.querySelector('.device-image');
+            const codenameElement = item.querySelector('.codename');
             
-            // Set loading state
-            img.classList.add('loading');
-            
-            // Try to load device image
+            if (!codenameElement) {
+                console.error('Codename element missing in:', item);
+                return;
+            }
+
+            const codename = codenameElement.textContent.trim().toLowerCase();
+            container.classList.add(config.loadingClass);
+
             const testImage = new Image();
-            testImage.src = `https://wiki.lineageos.org/images/devices/${codename}.png`;
-            
+            testImage.src = `${config.imageBaseUrl}${codename}.png`;
+
             testImage.onload = () => {
                 img.src = testImage.src;
                 img.alt = `${item.querySelector('h3').textContent} device image`;
-                img.classList.remove('loading');
+                container.classList.remove(config.loadingClass);
             };
-            
+
             testImage.onerror = () => {
-                img.src = 'https://bluemoji.io/cdn-proxy/646218c67da47160c64a84d5/66b3ea6b437be789ded213fd_45.png';
+                img.src = config.fallbackImage;
                 img.alt = 'Device image not available';
-                img.classList.remove('loading');
-                console.warn(`Image not found for ${codename}`);
+                container.classList.remove(config.loadingClass);
+                console.warn(`Image not found for ${codename}, using fallback`);
             };
         });
     };
 
-    // Initialize brand filters
+    // Enhanced filter system
     const initFilters = () => {
-        document.querySelectorAll('.filter-btn').forEach(btn => {
+        const filterButtons = document.querySelectorAll('.filter-btn');
+        const items = document.querySelectorAll('.download-item');
+
+        const applyFilter = (filter) => {
+            items.forEach(item => {
+                const match = filter === 'all' || item.dataset.brand === filter;
+                item.style.display = match ? 'grid' : 'none';
+            });
+        };
+
+        filterButtons.forEach(btn => {
             btn.addEventListener('click', () => {
-                // Remove active class from all buttons
-                document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-                
-                // Set active state
-                btn.classList.add('active');
-                const filter = btn.dataset.filter;
-                
-                // Filter devices
-                document.querySelectorAll('.download-item').forEach(item => {
-                    item.style.display = (filter === 'all' || item.dataset.brand === filter) 
-                        ? 'block' 
-                        : 'none';
-                });
+                filterButtons.forEach(b => b.classList.remove(config.activeFilterClass));
+                btn.classList.add(config.activeFilterClass);
+                applyFilter(btn.dataset.filter);
             });
         });
+
+        // Initial filter
+        applyFilter('all');
     };
 
-    // Initialize functions
-    loadDeviceImages();
-    initFilters();
+    // Responsive adjustments
+    const handleResponsive = () => {
+        const updateGrid = () => {
+            const grid = document.querySelector('.downloads-grid');
+            const screenWidth = window.innerWidth;
+            grid.style.gridTemplateColumns = screenWidth < 768 
+                ? '1fr' 
+                : 'repeat(auto-fit, minmax(300px, 1fr))';
+        };
 
-    // Add contains selector support
-    document.querySelectorAll = function(selector) {
-        const [base, text] = selector.split(':contains("');
-        return Array.prototype.filter.call(
-            document.querySelectorAll(base),
-            element => element.textContent.includes(text.replace('")', ''))
-        );
+        window.addEventListener('resize', () => {
+            requestAnimationFrame(updateGrid);
+        });
+
+        updateGrid();
     };
+
+    // Initialize all components
+    const init = () => {
+        try {
+            loadDeviceImages();
+            initFilters();
+            handleResponsive();
+        } catch (error) {
+            console.error('Initialization error:', error);
+        }
+    };
+
+    // Start with slight delay to prioritize critical rendering
+    setTimeout(init, 100);
 });
