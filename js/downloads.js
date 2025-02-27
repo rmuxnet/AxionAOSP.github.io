@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', async () => {
       loading.style.display = 'flex';
   
       // Cache optimization - implement local storage caching
-      const CACHE_EXPIRY = 1; // 1 hour in milliseconds
+      const CACHE_EXPIRY = 1800000; // 30m in milliseconds
       const cachedData = checkCache('device_data');
   
       let devices, imagesData;
@@ -71,7 +71,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     try {
       const { timestamp, data } = JSON.parse(cached);
       // CACHE_EXPIRY must match what's in your main function
-      const CACHE_EXPIRY = 1;
+      const CACHE_EXPIRY = 1800000;// 30m in milliseconds 
       if (Date.now() - timestamp < CACHE_EXPIRY) {
         return data;
       }
