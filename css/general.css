@@ -49,6 +49,8 @@ a:hover {
   justify-content: center;
   align-items: center;
   text-align: center;
+  transition: transform 0.1s, opacity 0.1s;
+  opacity: 0;
 }
 
 .header-video {
@@ -100,6 +102,10 @@ section {
   padding: 60px 20px;
   max-width: 1200px;
   margin: 0 auto;
+  opacity: 0;
+  transform: translateY(30px);
+  transition: transform 0.1s, opacity 0.1s;
+  will-change: opacity, transform;
 }
 
 section h2 {
@@ -201,4 +207,9 @@ section h2::after {
 
 .header.center .header-inner {
   flex-direction: column;
+}
+
+#header_intro,
+#header_green {
+  height: 100vh;
 }
