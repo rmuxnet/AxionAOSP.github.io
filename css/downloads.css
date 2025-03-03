@@ -1,0 +1,409 @@
+:root {
+  --primary-green: #a0f7b2;
+  --button-text: #1a472a;
+  --hover-green: #a0f7b2;
+  --active-green: #a0f7b2;
+  --card-bg: #000000;
+  --text-primary: #ffffff;
+  --text-secondary: #a0aec0;
+  --filter-active: #a0f7b2;
+  --card-border: #2d3748;
+  --section-bg: #111111;
+  --error-red: #f87171;
+  --card-border-radius: 1rem;
+  --transition-speed: 0.3s;
+  --spacing-md: 1rem;
+  --spacing-lg: 1.5rem;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+body {
+  font-family: 'Google Sans', 'Roboto', sans-serif;
+  background: var(--section-bg);
+  color: var(--text-primary);
+  line-height: 1.5;
+}
+
+.downloads-section {
+  padding: 2rem 1rem;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+h1 {
+  text-align: center;
+  margin-bottom: 2rem;
+  font-size: 2.5rem;
+  font-weight: 600;
+  letter-spacing: -0.5px;
+}
+
+/* Enhanced Filter Section */
+.brand-filters {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 0.75rem;
+  padding: 0 1rem 8px;
+  margin-bottom: 2rem;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+
+.brand-filters::-webkit-scrollbar {
+  display: none;
+}
+
+.filter-btn {
+  padding: 0.75rem 1.25rem;
+  border-radius: 2rem;
+  background: #000000;
+  border: 1px solid var(--card-border);
+  color: var(--text-primary);
+  cursor: pointer;
+  transition: all var(--transition-speed) ease;
+  font-size: 0.95rem;
+  font-weight: 500;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.filter-btn:hover {
+  transform: translateY(-1px);
+  background: #a0f7b27a;
+}
+
+.filter-btn.active {
+  background: var(--filter-active);
+  color: var(--button-text);
+  border-color: transparent;
+  box-shadow: 0 2px 8px rgba(255, 255, 255, 0.2);
+}
+
+/* Device Grid System */
+.downloads-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: 1.5rem;
+  padding: 0 1rem;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+/* Device Cards */
+.device-card {
+  background: var(--card-bg);
+  border-radius: var(--card-border-radius);
+  border: 1px solid var(--card-border);
+  overflow: hidden;
+  transition: transform var(--transition-speed) ease, box-shadow var(--transition-speed) ease;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  animation: fadeIn 0.4s ease-out;
+  animation-fill-mode: backwards;
+}
+
+.device-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.device-header {
+  padding: 1.25rem;
+  cursor: pointer;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 1rem;
+}
+
+.device-thumb {
+  width: 48px;
+  height: 72px;
+  object-fit: contain;
+  border-radius: 8px;
+  background-color: #1a1a1a;
+}
+
+.device-info {
+  flex-grow: 1;
+  overflow: hidden;
+}
+
+.device-name {
+  font-size: 1.1rem;
+  margin-bottom: 0.25rem;
+  font-weight: 500;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.codename {
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.toggle-btn {
+  background: none;
+  border: none;
+  color: var(--primary-green);
+  font-size: 1.2rem;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform var(--transition-speed) ease;
+  cursor: pointer;
+}
+
+.toggle-btn i.fa-chevron-up {
+  transform: rotate(180deg);
+}
+
+/* Flavor Cards */
+.flavor-card {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 0.75rem;
+  overflow: hidden;
+  margin-bottom: 1rem;
+}
+
+.flavor-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.75rem 1rem;
+  background-color: rgba(255, 255, 255, 0.08);
+}
+
+.flavor-title {
+  font-weight: 500;
+}
+
+.download-btn {
+  background: var(--primary-green);
+  color: var(--button-text);
+  padding: 0.75rem 1rem;
+  border-radius: 0.5rem;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: all var(--transition-speed) ease;
+  font-weight: 500;
+  font-size: 0.9rem;
+}
+
+.download-btn:hover {
+  transform: translateY(-1px);
+  background: var(--hover-green);
+  box-shadow: 0 2px 8px rgba(201, 253, 211, 0.2);
+}
+
+.download-btn:active {
+  background: var(--active-green);
+  transform: translateY(0);
+}
+
+.version-info {
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+  line-height: 1.5;
+  padding: 0.75rem 1rem;
+}
+
+.version-info div {
+  margin-bottom: 0.25rem;
+}
+
+.version-info div:last-child {
+  margin-bottom: 0;
+}
+
+/* Loading States */
+.loading-state {
+  display: none;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+  color: var(--text-secondary);
+  grid-column: 1 / -1;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.loading-state i {
+  font-size: 2rem;
+  color: var(--primary-green);
+}
+
+.error {
+  text-align: center;
+  padding: 2rem;
+  color: var(--error-red);
+  grid-column: 1 / -1;
+}
+
+.error i {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+
+.error a {
+  color: var(--primary-green);
+  text-decoration: none;
+}
+
+.error a:hover {
+  text-decoration: underline;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .downloads-section {
+    padding: 1.5rem 0.5rem;
+  }
+
+  h1 {
+    font-size: 2rem;
+    padding: 0 1rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .brand-filters {
+    gap: 0.5rem;
+    padding: 0 1rem 8px;
+    margin-bottom: 1.5rem;
+  }
+
+  .filter-btn {
+    padding: 0.7rem 1.1rem;
+    font-size: 0.88rem;
+  }
+
+  .downloads-grid {
+    grid-template-columns: 1fr;
+    padding: 0 0.5rem;
+    gap: 1rem;
+  }
+
+  .device-header {
+    padding: 1rem;
+    gap: 0.75rem;
+  }
+
+  .device-thumb {
+    width: 42px;
+    height: 64px;
+  }
+
+  .device-name {
+    font-size: 1rem;
+  }
+
+  .codename {
+    font-size: 0.85rem;
+  }
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+  .brand-filters {
+    gap: 0.65rem;
+  }
+
+  .filter-btn {
+    padding: 0.7rem 1.1rem;
+    font-size: 0.9rem;
+  }
+
+  .downloads-grid {
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  }
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.device-card:nth-child(1) { animation-delay: 0.05s; }
+.device-card:nth-child(2) { animation-delay: 0.1s; }
+.device-card:nth-child(3) { animation-delay: 0.15s; }
+.device-card:nth-child(4) { animation-delay: 0.2s; }
+.device-card:nth-child(5) { animation-delay: 0.25s; }
+.device-card:nth-child(6) { animation-delay: 0.3s; }
+.device-card:nth-child(7) { animation-delay: 0.35s; }
+.device-card:nth-child(8) { animation-delay: 0.4s; }
+.device-card:nth-child(9) { animation-delay: 0.45s; }
+.device-card:nth-child(10) { animation-delay: 0.5s; }
+
+/* Modal Styles */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+
+.modal-overlay.active {
+  display: flex;
+}
+
+.modal-content {
+  background: var(--card-bg);
+  border-radius: var(--card-border-radius);
+  border: 1px solid var(--card-border);
+  max-width: 600px;
+  width: 90%;
+  padding: 1rem;
+  position: relative;
+}
+
+.close-btn {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  background: none;
+  border: none;
+  color: var(--text-primary);
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+.modal-body {
+  margin-top: 2rem;
+}
+
+/* File Truncation */
+.version-info div:nth-child(3) {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+}

@@ -1,0 +1,112 @@
+{
+  "devices": [
+    {
+      "codename": "oriole",
+      "imageUrl": "https://wiki.lineageos.org/images/devices/oriole.png"
+    },
+    {
+      "codename": "bluejay",
+      "imageUrl": "https://wiki.lineageos.org/images/devices/bluejay.png"
+    },
+    {
+      "codename": "raven",
+      "imageUrl": "https://wiki.lineageos.org/images/devices/raven.png"
+    },
+    {
+      "codename": "lynx",
+      "imageUrl": "https://wiki.lineageos.org/images/devices/lynx.png"
+    },
+    {
+      "codename": "panther",
+      "imageUrl": "https://wiki.lineageos.org/images/devices/panther.png"
+    },
+    {
+      "codename": "cheetah",
+      "imageUrl": "https://wiki.lineageos.org/images/devices/cheetah.png"
+    },
+    {
+      "codename": "akita",
+      "imageUrl": "https://wiki.lineageos.org/images/devices/akita.png"
+    },
+    {
+      "codename": "shiba",
+      "imageUrl": "https://wiki.lineageos.org/images/devices/shiba.png"
+    },
+    {
+      "codename": "husky",
+      "imageUrl": "https://wiki.lineageos.org/images/devices/husky.png"
+    },
+    {
+      "codename": "tokay",
+      "imageUrl": "https://wiki.lineageos.org/images/devices/tokay.png"
+    },
+    {
+      "codename": "caiman",
+      "imageUrl": "https://wiki.lineageos.org/images/devices/caiman.png"
+    },
+    {
+      "codename": "komodo",
+      "imageUrl": "https://wiki.lineageos.org/images/devices/komodo.png"
+    },
+    {
+      "codename": "a71",
+      "imageUrl": "https://wiki.lineageos.org/images/devices/a71.png"
+    },
+    {
+      "codename": "cancunf",
+      "imageUrl": "https://wiki.lineageos.org/images/devices/cancunf.png"
+    },
+    {
+      "codename": "beryllium",
+      "imageUrl": "https://wiki.lineageos.org/images/devices/beryllium.png"
+    },
+    {
+      "codename": "alioth",
+      "imageUrl": "https://wiki.lineageos.org/images/devices/alioth.png"
+    },
+    {
+      "codename": "peridot",
+      "imageUrl": "https://wiki.lineageos.org/images/devices/peridot.png"
+    },
+    {
+      "codename": "vermeer",
+      "imageUrl": "https://wiki.lineageos.org/images/devices/vermeer.png"
+    },
+    {
+      "codename": "vayu",
+      "imageUrl": "https://wiki.lineageos.org/images/devices/vayu.png"
+    },
+    {
+      "codename": "veux",
+      "imageUrl": "https://wiki.lineageos.org/images/devices/veux.png"
+    },
+    {
+      "codename": "duchamp",
+      "imageUrl": "https://wiki.lineageos.org/images/devices/duchamp.png"
+    },
+    {
+      "codename": "begonia",
+      "imageUrl": "https://wiki.lineageos.org/images/devices/begonia.png"
+    },
+    {
+      "codename": "sweet",
+      "imageUrl": "https://wiki.lineageos.org/images/devices/sweet.png"
+    },
+    {
+      "codename": "socrates",
+      "imageUrl": "https://wiki.lineageos.org/images/devices/socrates.png"
+    },
+    {
+      "codename": "LG8n",
+      "imageUrl": "https://wiki.lineageos.org/images/devices/lg8n.png"
+    },
+    {
+      "codename": "LG7n",
+      "imageUrl": "https://wiki.lineageos.org/images/devices/lg7n.png"
+    },
+    {
+      "codename": "pipa",
+      "imageUrl": "https://wiki.lineageos.org/images/devices/pipa.png"
+    }
+  ]
+}
