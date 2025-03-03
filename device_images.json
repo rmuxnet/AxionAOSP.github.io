@@ -1,3 +1,4 @@
+
 {
   "devices": [
     {
@@ -50,11 +51,11 @@
     },
     {
       "codename": "a71",
-      "imageUrl": "https://wiki.lineageos.org/images/devices/a71.png"
+      "imageUrl": "https://fdn2.gsmarena.com/vv/bigpic/samsung-galaxy-a71.jpg"
     },
     {
       "codename": "cancunf",
-      "imageUrl": "https://wiki.lineageos.org/images/devices/cancunf.png"
+      "imageUrl": "https://fdn2.gsmarena.com/vv/bigpic/motorola-moto-g54.jpg"
     },
     {
       "codename": "beryllium",
@@ -65,12 +66,16 @@
       "imageUrl": "https://wiki.lineageos.org/images/devices/alioth.png"
     },
     {
+      "codename": "marble",
+      "imageUrl": "https://fdn2.gsmarena.com/vv/bigpic/xiaomi-poco-f5-2.jpg"
+    },
+    {
       "codename": "peridot",
-      "imageUrl": "https://wiki.lineageos.org/images/devices/peridot.png"
+      "imageUrl": "https://fdn2.gsmarena.com/vv/bigpic/xiaomi-poco-f6.jpg"
     },
     {
       "codename": "vermeer",
-      "imageUrl": "https://wiki.lineageos.org/images/devices/vermeer.png"
+      "imageUrl": "https://fdn2.gsmarena.com/vv/bigpic/xiaomi-poco-f6-pro.jpg"
     },
     {
       "codename": "vayu",
@@ -78,15 +83,15 @@
     },
     {
       "codename": "veux",
-      "imageUrl": "https://wiki.lineageos.org/images/devices/veux.png"
+      "imageUrl": "https://fdn2.gsmarena.com/vv/bigpic/xiaomi-redmi-note-11-pro-5g-global.jpg"
     },
     {
       "codename": "duchamp",
-      "imageUrl": "https://wiki.lineageos.org/images/devices/duchamp.png"
+      "imageUrl": "https://fdn2.gsmarena.com/vv/bigpic/xiaomi-redmi-k70e.jpg"
     },
     {
       "codename": "begonia",
-      "imageUrl": "https://wiki.lineageos.org/images/devices/begonia.png"
+      "imageUrl": "https://fdn2.gsmarena.com/vv/bigpic/xiaomi-redmi-note-8-pro-.jpg"
     },
     {
       "codename": "sweet",
@@ -98,15 +103,15 @@
     },
     {
       "codename": "LG8n",
-      "imageUrl": "https://wiki.lineageos.org/images/devices/lg8n.png"
+      "imageUrl": "https://fdn2.gsmarena.com/vv/pics/tecno/tecno-pova4-pro-1.jpg"
     },
     {
       "codename": "LG7n",
-      "imageUrl": "https://wiki.lineageos.org/images/devices/lg7n.png"
+      "imageUrl": "https://fdn2.gsmarena.com/vv/pics/tecno/tecno-pova4-1.jpg"
     },
     {
-      "codename": "pipa",
-      "imageUrl": "https://wiki.lineageos.org/images/devices/pipa.png"
+      "codename": "r5x",
+      "imageUrl": "https://fdn2.gsmarena.com/vv/bigpic/realme-5i.jpg"
     }
   ]
 }

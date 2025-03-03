@@ -346,10 +346,11 @@ function getDeviceBrand(deviceName) {
     google: /Google Pixel/i,
     samsung: /Galaxy/i,
     poco: /POCO/i,
+    realme: /Realme/i,
     xiaomi: /Xiaomi|Redmi/i,
     tecno: /TECNO/i,
     motorola: /Motorola/i,
-  };
+  };  
 
   const brand = Object.entries(brands).find(([_, regex]) => 
     regex.test(deviceName)

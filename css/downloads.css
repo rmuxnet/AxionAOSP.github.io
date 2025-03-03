@@ -130,7 +130,7 @@ h1 {
   height: 72px;
   object-fit: contain;
   border-radius: 8px;
-  background-color: #1a1a1a;
+  background-color: transparent;
 }
 
 .device-info {
