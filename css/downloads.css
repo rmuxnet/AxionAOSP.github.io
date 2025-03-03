@@ -57,6 +57,7 @@ h1 {
   overflow-x: auto;
   -webkit-overflow-scrolling: touch;
   scrollbar-width: none;
+  justify-content: center;
 }
 
 .brand-filters::-webkit-scrollbar {
@@ -66,8 +67,8 @@ h1 {
 .filter-btn {
   padding: 0.75rem 1.25rem;
   border-radius: 2rem;
-  background: #000000;
-  border: 1px solid var(--card-border);
+  background: var(--md_surface_color);
+  border: none;
   color: var(--text-primary);
   cursor: pointer;
   transition: all var(--transition-speed) ease;
@@ -79,7 +80,7 @@ h1 {
 
 .filter-btn:hover {
   transform: translateY(-1px);
-  background: #a0f7b27a;
+  background: var(--md_accent_dark_color);
 }
 
 .filter-btn.active {
@@ -97,18 +98,20 @@ h1 {
   padding: 0 1rem;
   max-width: 1400px;
   margin: 0 auto;
+  place-items: center;
 }
 
 /* Device Cards */
 .device-card {
-  background: var(--card-bg);
+  background: var(--md_surface_color);
   border-radius: var(--card-border-radius);
-  border: 1px solid var(--card-border);
+  border: none;
   overflow: hidden;
   transition: transform var(--transition-speed) ease, box-shadow var(--transition-speed) ease;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   animation: fadeIn 0.4s ease-out;
   animation-fill-mode: backwards;
+  min-width: 358px;
 }
 
 .device-card:hover {
@@ -186,11 +189,12 @@ h1 {
   justify-content: space-between;
   align-items: center;
   padding: 0.75rem 1rem;
-  background-color: rgba(255, 255, 255, 0.08);
+  background-color: var(--md_surface_color_light);
 }
 
 .flavor-title {
   font-weight: 500;
+  color: var(--md_accent_color);
 }
 
 .download-btn {
@@ -376,9 +380,9 @@ h1 {
 }
 
 .modal-content {
-  background: var(--card-bg);
+  background: var(--md_surface_color);
   border-radius: var(--card-border-radius);
-  border: 1px solid var(--card-border);
+  border: none;
   max-width: 600px;
   width: 90%;
   padding: 1rem;
@@ -388,7 +392,7 @@ h1 {
 .close-btn {
   position: absolute;
   top: 0.5rem;
-  right: 0.5rem;
+  right: 1rem;
   background: none;
   border: none;
   color: var(--text-primary);

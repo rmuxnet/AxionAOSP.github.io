@@ -178,23 +178,20 @@ function createDeviceElements(devices, imagesData) {
 
       // Build device card HTML
       element.innerHTML = `
-        <div class="device-header">
-          <img 
-            src="${imageUrl}"
-            class="device-thumb"
-            alt="${device.name}"
-            loading="lazy"
-            onerror="this.src='images/fallback.png'"
-          />
-          <div class="device-info">
-            <div class="device-name">${device.name}</div>
-            <div class="codename">${device.codename}</div>
-          </div>
-          <button class="toggle-btn" data-flavors="${encodeURIComponent(flavorHtml)}">
-            <i class="fas fa-chevron-down"></i>
-          </button>
+      <div class="device-header" data-flavors="${encodeURIComponent(flavorHtml)}">
+        <img 
+          src="${imageUrl}"
+          class="device-thumb"
+          alt="${device.name}"
+          loading="lazy"
+          onerror="this.src='images/fallback.png'"
+        />
+        <div class="device-info">
+          <div class="device-name">${device.name}</div>
+          <div class="codename">${device.codename}</div>
         </div>
-      `;
+      </div>
+    `;    
 
       return element;
     })
@@ -256,7 +253,7 @@ function renderFlavor(type, data) {
     <div class="flavor-card">
       <div class="flavor-header">
         <div class="flavor-title">${type}</div>
-        <a href="${data.url}" class="download-btn" download>
+        <a href="${data.url}" class="download-btn" download target="_blank" download>
           <i class="fas fa-download"></i> ${sizeMB}MB
         </a>
       </div>
@@ -283,10 +280,13 @@ function initModalLogic() {
 
   // Show modal on device card click
   document.querySelector('.downloads-grid').addEventListener('click', (event) => {
-    const toggleBtn = event.target.closest('.toggle-btn');
-    if (!toggleBtn) return;
-
-    modalBody.innerHTML = decodeURIComponent(toggleBtn.dataset.flavors);
+    const deviceHeader = event.target.closest('.device-header');
+    if (!deviceHeader) return;
+  
+    const flavorsData = deviceHeader.dataset.flavors;
+    if (!flavorsData) return;
+  
+    modalBody.innerHTML = decodeURIComponent(flavorsData);
     modalOverlay.classList.add('active');
   });
 

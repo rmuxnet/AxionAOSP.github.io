@@ -1,5 +1,8 @@
 :root {
   --md_accent_color: #c9fdd3;
+  --md_surface_color: #1e1e1e;
+  --md_surface_color_light: #303030;
+  --md_accent_dark_color: #a0f7b27a;
 }
 
 html {
@@ -95,7 +98,8 @@ a:hover {
 }
 
 .btn-primary:hover {
-  background-color: #02b3a9;
+  background-color: var(--md_accent_dark_color);
+  text-decoration: none;
 }
 
 section {

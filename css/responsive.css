@@ -55,6 +55,14 @@
     background: rgba(49,49,49, 1) !important;
     padding-right: 32px !important;
   }
+
+  .brand-filters {
+    justify-content: flex-start;
+  }
+
+  #joinTelegram {
+    margin-right: 0px !important;
+  }
 }
 
 @media (max-width: 600px) {
@@ -64,9 +72,5 @@
 
   .user_feedback {
       width: 100%;
-  }
-
-  #joinTelegram {
-      margin-right: 0px;
   }
 }

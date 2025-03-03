@@ -2,6 +2,7 @@
 @import url('footer.css');
 @import url('general.css');
 @import url('nav.css');
+@import url('downloads.css');
 @import url('responsive.css');
 @import url('splide.css');
 
@@ -71,7 +72,7 @@
 }
 
 .user_feedback {
-    background: #333030;
+    background: var(--md_surface_color);
     color: #fff;
     padding: 16px;
     border-radius: 12px;
