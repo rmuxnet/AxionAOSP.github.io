@@ -67,7 +67,7 @@ function initSearch() {
     deviceCards.forEach(card => {
       const name = card.querySelector('.device-name').textContent.toLowerCase();
       const codename = card.querySelector('.codename').textContent.toLowerCase();
-      
+
       if ((name.includes(query) || codename.includes(query)) && query !== '') {
         card.style.display = 'block';
       } else {
@@ -196,7 +196,7 @@ function createDeviceElements(devices, imagesData) {
           <div class="codename">${device.codename}</div>
         </div>
       </div>
-    `;    
+    `;
 
       return element;
     })
@@ -228,10 +228,10 @@ async function fetchFlavorDataWithCache(codename, type) {
       `https://raw.githubusercontent.com/AxionAOSP/official_devices/main/OTA/${type}/${codename.toLowerCase()}.json`
     );
     if (!res.ok) return null;
-    
+
     const data = await res.json();
     const result = data.response[0] || null;
-    
+
     // Update cache
     flavorCache.set(cacheKey, result);
     return result;
@@ -250,23 +250,31 @@ async function fetchFlavorDataWithCache(codename, type) {
 function renderFlavor(type, data) {
   if (!data) return '';
 
-  // Format data values
-  const sizeMB = (data.size / 1024 / 1024).toFixed(1);
-  const buildDate = new Date(data.datetime * 1000).toLocaleDateString();
+  const sizeMB = data.size ? (data.size / 1024 / 1024).toFixed(1) + 'MB' : 'N/A';
+  const buildDate = data.datetime ? new Date(data.datetime * 1000).toLocaleDateString() : 'N/A';
+  const hasDownload = data.url && data.url.trim() !== '';
 
   return `
     <div class="flavor-card">
       <div class="flavor-header">
         <div class="flavor-title">${type}</div>
-        <a href="${data.url}" class="download-btn" download target="_blank" download>
-          <i class="fas fa-download"></i> ${sizeMB}MB
-        </a>
+        ${hasDownload ? `
+          <a href="${data.url}" class="download-btn" download target="_blank">
+            <i class="fas fa-download"></i> ${sizeMB}
+          </a>
+        ` : `
+          <span class="download-btn disabled">
+            <i class="fas fa-ban"></i> N/A
+          </span>
+        `}
       </div>
-      <div class="version-info">
-        <div>Version: ${data.version}</div>
-        <div>Build Date: ${buildDate}</div>
-        <div>File: ${data.filename}</div>
-      </div>
+      ${hasDownload ? `
+        <div class="version-info">
+          <div>Version: ${data.version}</div>
+          <div>Build Date: ${buildDate}</div>
+          <div>File: ${data.filename}</div>
+        </div>
+      ` : ''}
     </div>
   `;
 }
@@ -283,19 +291,20 @@ function initModalLogic() {
   const modalBody = document.getElementById('modalBody');
   const closeModalBtn = document.getElementById('closeModalBtn');
 
-  // Show modal on device card click
   document.querySelector('.downloads-grid').addEventListener('click', (event) => {
     const deviceHeader = event.target.closest('.device-header');
     if (!deviceHeader) return;
   
     const flavorsData = deviceHeader.dataset.flavors;
-    if (!flavorsData) return;
+    if (!flavorsData || decodeURIComponent(flavorsData).trim() === '') {
+      showSnackbar("No builds available for this device yet.");
+      return;
+    }
   
     modalBody.innerHTML = decodeURIComponent(flavorsData);
     modalOverlay.classList.add('active');
   });
 
-  // Close modal handlers
   closeModalBtn.addEventListener('click', () => closeModal());
   modalOverlay.addEventListener('click', (e) => e.target === modalOverlay && closeModal());
 
@@ -304,6 +313,24 @@ function initModalLogic() {
     modalBody.innerHTML = '';
   }
 }
+
+function showSnackbar(message) {
+  let snackbar = document.getElementById('snackbar');
+
+  if (!snackbar) {
+    snackbar = document.createElement('div');
+    snackbar.id = 'snackbar';
+    document.body.appendChild(snackbar);
+  }
+
+  snackbar.textContent = message;
+  snackbar.className = 'show';
+
+  setTimeout(() => {
+    snackbar.className = snackbar.className.replace('show', '');
+  }, 3000);
+}
+
 
 /**
  * Initializes brand filtering buttons
@@ -348,12 +375,12 @@ function getDeviceBrand(deviceName) {
     xiaomi: /Xiaomi|Redmi/i,
     tecno: /TECNO/i,
     motorola: /Motorola/i,
-  };  
+  };
 
-  const brand = Object.entries(brands).find(([_, regex]) => 
+  const brand = Object.entries(brands).find(([_, regex]) =>
     regex.test(deviceName)
   )?.[0] || 'other';
 
   brandCache.set(deviceName, brand);
   return brand;
-            }
+}

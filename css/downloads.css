@@ -474,3 +474,44 @@ h1 {
   font-family: 'Google Sans', sans-serif;
   background: transparent;
 }
+
+.download-btn.disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+  text-decoration: none;
+  padding: 8px 12px;
+  display: inline-block;
+  border-radius: 5px;
+  color: #666;
+}
+
+#snackbar {
+  visibility: hidden;
+  min-width: 250px;
+  background-color: #323232;
+  color: #fff;
+  text-align: center;
+  border-radius: 4px;
+  padding: 12px;
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 14px;
+  z-index: 1000;
+}
+
+#snackbar.show {
+  visibility: visible;
+  animation: fadeIn 0.5s, fadeOut 0.5s 2.5s;
+}
+
+@keyframes fadeIn {
+  from { bottom: 10px; opacity: 0; }
+  to { bottom: 20px; opacity: 1; }
+}
+
+@keyframes fadeOut {
+  from { bottom: 20px; opacity: 1; }
+  to { bottom: 10px; opacity: 0; }
+}
