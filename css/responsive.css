@@ -51,8 +51,8 @@
     max-width: 100%;
   }
 
-  .nav-links{
-    background: rgba(49,49,49, 1) !important;
+  .nav-links {
+    background: rgba(49, 49, 49, 1) !important;
     padding-right: 32px !important;
   }
 
@@ -63,14 +63,18 @@
   #joinTelegram {
     margin-right: 0px !important;
   }
+
+  #changelog-list {
+    text-align: center !important;
+  }
 }
 
 @media (max-width: 600px) {
   .user_feedbacks {
-      justify-content: flex-start;
+    justify-content: flex-start;
   }
 
   .user_feedback {
-      width: 100%;
+    width: 100%;
   }
 }
