@@ -107,23 +107,6 @@
     </section>
   </section>
 
-  <header id="header_game" class="header center">
-    <div class="header-inner">
-      <div class="header-text-game">
-        <div class="header-game">
-          <img src="img/game_preview.png" alt="Mockup" />
-        </div>
-        <h1>Ready. Set. Game!</h1>
-        <p>
-          Experience gaming like never before!
-          <br>
-          AxionOS Performance Mode optimizes your device by fine-tuning schedulers and virtual memory, delivering
-          smoother gameplay and faster response times.
-        </p>
-      </div>
-    </div>
-  </header>
-
   <section id="features">
     <header class="header reverse">
       <div class="header-inner">
@@ -143,12 +126,32 @@
     </header>
   </section>
 
-  <!-- Modal Overlay -->
+  <header id="header_game" class="header center">
+    <div class="header-inner">
+      <div class="header-text-game">
+        <div class="header-game">
+          <div class="game-preview-container">
+            <video autoplay muted loop playsinline id="gameVideo" class="game-preview-video">
+              <source src="videos/gameplay.mp4" type="video/webm">
+            </video>
+            <div class="punch-hole"></div>
+          </div>          
+        </div>
+        <h1>Ready. Set. Game!</h1>
+        <p>
+          Experience gaming like never before!
+          <br>
+          AxionOS Performance Mode optimizes your device by fine-tuning schedulers and virtual memory, delivering
+          smoother gameplay and faster response times.
+        </p>
+      </div>
+    </div>
+  </header>
+
   <div class="modal-overlay" id="modalOverlay">
     <div class="modal-content">
       <button class="close-btn" id="closeModalBtn">&times;</button>
       <div class="modal-body" id="modalBody">
-        <!-- Download details will be injected here dynamically -->
       </div>
     </div>
   </div>
@@ -164,16 +167,17 @@
       <a href="#downloads" class="btn-primary">Download AxionOS</a>
       <div class="user_feedbacks">
         <div class="user_feedback">
-          Came from XX ROM to Axion ROM. Axion feels faster, less bloated, and to the point, not loaded with too much customizing. Big fan of this!
+          Came from XX ROM to Axion ROM. Axion feels faster, less bloated, and to the point, not loaded with too much
+          customizing. Big fan of this!
           <div class="user_feedback_author">
-              — Gio
+            — Gio
           </div>
         </div>
         <div class="user_feedback">
-            This ROM is so smooth af, I'm restoring, and it's not even lagging like it normally does in other ROMs.
-            <div class="user_feedback_author">
-                — Ren
-            </div>
+          This ROM is so smooth af, I'm restoring, and it's not even lagging like it normally does in other ROMs.
+          <div class="user_feedback_author">
+            — Ren
+          </div>
         </div>
         <div class="user_feedback">
           Battery backup is Good on this rom
@@ -223,115 +227,62 @@
     </div>
   </section>
 
-  <section id="changelog">
-    <h2>Changelog</h2>
-    <div class="content-card" id="changelog-list"></div>
-  </section>
+  <div class="modal-overlay" id="changelogModal">
+    <div class="modal-content">
+      <button class="close-btn" id="closeChangelogBtn">&times;</button>
+      <h2>Changelog</h2>
+      <div id="changelog-list">
+      </div>
+    </div>
+  </div>
 
   <section id="faq">
     <h2>Frequently Asked Questions</h2>
-    <div class="content-card">
-      <div class="faq-item" id="faq1">
+    <div class="faq-grid">
+      <div class="faq-item">
         <h3>Why is AxionAOSP a performance-oriented ROM?</h3>
         <p>
           AxionAOSP incorporates various performance optimizations from
-          <a href="https://protonaosp.org/performance">ProtonAOSP</a>, along with our own efficiency tweaks to reduce
-          system resource usage.
-        </p>
-        <p><br>Some key enhancements include:</p>
-        <p>
-          - Optimized notification icon and image memory usage –
-          <a
-            href="https://github.com/AxionAOSP/android_frameworks_base/commit/11f6908793ef52cf8f4afeb0cbd7d42e130201a9">commit</a>
-          <br>
-          - Compressed and optimized media artwork album art –
-          <a
-            href="https://github.com/AxionAOSP/android_frameworks_base/commit/db7483d2ba0648f1af949e07066b0475e4a415d8">commit</a>
-          <br>
-          - Lowered snapshot memory usage –
-          <a
-            href="https://github.com/AxionAOSP/android_frameworks_base/commit/cfc0ec4244df202ed4489d07466f9cb393d65bb3">commit</a>
-          <br>
-          - Lowered max broadcast limit –
-          <a
-            href="https://github.com/AxionAOSP/android_frameworks_base/commit/9e29ecd09a65097a93c31cf2b167a97a6b8200f8">commit</a>
-          <br>
-          - Reduced job concurrency limit –
-          <a
-            href="https://github.com/AxionAOSP/android_frameworks_base/commit/e798dcc9bdf7b7abc1a81b896eee9e59f29e4b8b">commit</a>
-          <br>
-          - Adjusted max process limits for legacy devices –
-          <a
-            href="https://github.com/AxionAOSP/android_frameworks_base/commit/bce376fc56df3bcc837c0e5cb0e3a5affa89c761">commit</a>
-          <br>
-          - Optimized storage management for low-end devices:
-          <a
-            href="https://github.com/AxionAOSP/android_frameworks_base/commit/54b4e0b104626ebba8a25818577651085605b698">commit</a>,
-          <a
-            href="https://github.com/AxionAOSP/android_frameworks_base/commit/94deb5dd28c99c6a938566141b614297a3826194">commit</a>
-        </p>
-        <p>
-          <br>
-          Additionally, we avoid adding features unless they are verified to have no negative impact on memory or
-          performance.
+          <a href="https://protonaosp.org/performance">ProtonAOSP</a>, along with our own efficiency tweaks.
         </p>
       </div>
 
       <div class="faq-item">
         <h3>Can you add Feature XX?</h3>
-        <p>
-          We welcome suggestions, but features will only be added if they are useful and non-intrusive.
-        </p>
-        <p>
-          <br>
-          Example of features that will not be added: <br>
-          - Proprietary features (e.g., Pixel Framework) <br>
-          - Resource-intensive features <br>
-          - Features that may introduce memory leaks <br>
-          - Spoofing of google apps
-        </p>
+        <p>We welcome suggestions, but only if they are useful and non-intrusive.</p>
       </div>
 
       <div class="faq-item">
         <h3>Is battery life good on AxionAOSP?</h3>
         <p>
-          Battery life is subjective and depends on factors such as kernel, usage patterns, and device configuration.
-          However,
-          AxionAOSP includes optimizations aimed at maximizing efficiency. See
-          <a href="#faq" onclick="expandFaqItem('faq1');">Why is AxionAOSP a performance-oriented ROM?</a> for details.
+          Battery life depends on factors like kernel, usage, and configuration. AxionAOSP includes efficiency
+          optimizations.
         </p>
       </div>
 
       <div class="faq-item">
         <h3>Does Play Integrity pass?</h3>
-        <p>
-          Play integrity passes after updating pif properties at Settings->Special Features->Spoofing section.
-        </p>
+        <p>Yes, after updating pif properties in Settings → Special Features → Spoofing.</p>
       </div>
 
       <div class="faq-item">
         <h3>Where are the customizations?</h3>
-        <p>
-          AxionAOSP is not a customization-focused ROM. If extensive customization is a priority for you, other ROMs may
-          better suit your needs.
-        </p>
+        <p>AxionAOSP prioritizes performance over heavy customization.</p>
       </div>
 
       <div class="faq-item">
         <h3>How do I install AxionAOSP?</h3>
-        <p>
-          Follow our detailed installation guide on the documentation page. Ensure your device is supported before
-          proceeding.
-        </p>
+        <p>Follow the detailed installation guide on our documentation page.</p>
       </div>
     </div>
   </section>
+
 
   <footer>
     <p>&copy; 2025 AxionOS. All Rights Reserved.</p>
   </footer>
 
-<!-- JS file -->
+  <!-- JS file -->
   <script src="js/downloads.js"></script>
   <script src="js/changelog.js"></script>
   <script src="js/faq.js"></script>

@@ -39,3 +39,29 @@ document.addEventListener('DOMContentLoaded', function () {
     })
     .catch(error => console.error(error));
 });
+
+document.addEventListener("DOMContentLoaded", () => {
+  const changelogLinks = document.querySelectorAll('a[href="#changelog"]');
+  const changelogModal = document.getElementById("changelogModal");
+  const closeChangelogBtn = document.getElementById("closeChangelogBtn");
+
+  changelogLinks.forEach(link => {
+    link.addEventListener("click", (event) => {
+      event.preventDefault();
+      changelogModal.style.display = "flex";
+    });
+  });
+
+  closeChangelogBtn.addEventListener("click", () => {
+    changelogModal.style.display = "none";
+  });
+
+  window.addEventListener("click", (event) => {
+    if (event.target === changelogModal) {
+      changelogModal.style.display = "none";
+    }
+  });
+});
+
+  
+

@@ -40,6 +40,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     initFilters();
     initSearch();
+    initModalLogic();
 
   } catch (error) {
     console.error('Error:', error);
