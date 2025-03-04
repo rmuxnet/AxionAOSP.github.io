@@ -3,60 +3,45 @@
  * Handles device data fetching, processing, and UI rendering
  */
 document.addEventListener('DOMContentLoaded', async () => {
-  // Get DOM elements
-  const grid = document.querySelector('.downloads-grid'); // Container for device cards
-  const loading = document.querySelector('.loading-state'); // Loading spinner
+  const grid = document.querySelector('.downloads-grid');
+  const loading = document.querySelector('.loading-state');
 
   try {
-    // Show loading indicator
     loading.style.display = 'flex';
 
-    // Cache configuration
-    const CACHE_EXPIRY = 1800000; // 30 minutes in milliseconds
-    const cachedData = checkCache('device_data'); // Check for existing cache
+    const CACHE_EXPIRY = 1800000; // 30 minutes
+    const cachedData = checkCache('device_data');
 
-    let devices, imagesData; // Will store processed device list and images
+    let devices, imagesData;
 
     if (cachedData) {
-      // Use cached data if available and valid
       ({ devices, imagesData } = cachedData);
     } else {
-      // Fetch fresh data from GitHub repositories
       const [devicesRes, imagesRes] = await Promise.all([
         fetch('https://raw.githubusercontent.com/AxionAOSP/official_devices/refs/heads/main/README.md'),
         fetch('https://raw.githubusercontent.com/AxionAOSP/official_devices/refs/heads/main/OTA/device_images.json')
       ]);
 
-      // Process responses
       const [devicesText, images] = await Promise.all([
-        devicesRes.text(), // Get README content as text
-        imagesRes.json() // Get device images JSON
+        devicesRes.text(),
+        imagesRes.json()
       ]);
 
-      // Parse device data from README table
       devices = processDevices(devicesText);
       imagesData = images;
-
-      // Store in cache for future visits
       saveToCache('device_data', { devices, imagesData });
     }
 
-    // Create document fragment for optimized DOM manipulation
-    const fragment = document.createDocumentFragment();
     const deviceElements = await createDeviceElements(devices, imagesData);
+    deviceElements.forEach(element => {
+      element.style.display = 'none';
+      grid.appendChild(element);
+    });
 
-    // Add all device cards to fragment
-    deviceElements.forEach(element => fragment.appendChild(element));
+    initFilters();
+    initSearch();
 
-    // Update UI in single operation
-    grid.innerHTML = '';
-    grid.appendChild(fragment);
-
-    // Initialize interactive features
-    initFilters(); // Brand filtering buttons
-    initModalLogic(); // Download details modal
   } catch (error) {
-    // Handle errors during data loading
     console.error('Error:', error);
     grid.innerHTML = `
       <div class="error">
@@ -67,10 +52,29 @@ document.addEventListener('DOMContentLoaded', async () => {
       </div>
     `;
   } finally {
-    // Always hide loading indicator
     loading.style.display = 'none';
   }
 });
+
+function initSearch() {
+  const searchInput = document.getElementById('deviceSearch');
+
+  searchInput.addEventListener('input', () => {
+    const query = searchInput.value.toLowerCase();
+    const deviceCards = document.querySelectorAll('.device-card');
+
+    deviceCards.forEach(card => {
+      const name = card.querySelector('.device-name').textContent.toLowerCase();
+      const codename = card.querySelector('.codename').textContent.toLowerCase();
+      
+      if ((name.includes(query) || codename.includes(query)) && query !== '') {
+        card.style.display = 'block';
+      } else {
+        card.style.display = 'none';
+      }
+    });
+  });
+}
 
 /* ======================
    CACHE MANAGEMENT
@@ -168,7 +172,7 @@ function createDeviceElements(devices, imagesData) {
 
       // Get device image or fallback
       const imageInfo = imagesData.devices.find(d => d.codename === device.codename);
-      const imageUrl = imageInfo?.imageUrl || 'images/fallback.png';
+      const imageUrl = imageInfo?.imageUrl || 'img/fallback.png';
 
       // Generate flavor HTML for modal
       const flavorHtml = `
@@ -184,7 +188,7 @@ function createDeviceElements(devices, imagesData) {
           class="device-thumb"
           alt="${device.name}"
           loading="lazy"
-          onerror="this.src='images/fallback.png'"
+          onerror="this.src='img/fallback.png'"
         />
         <div class="device-info">
           <div class="device-name">${device.name}</div>
@@ -304,23 +308,16 @@ function initModalLogic() {
  * Initializes brand filtering buttons
  */
 function initFilters() {
-  const filterContainer = document.querySelector('.filter-container');
-  if (!filterContainer) return;
-
-  filterContainer.addEventListener('click', (event) => {
+  document.querySelector('.filter-container').addEventListener('click', (event) => {
     const btn = event.target.closest('.filter-btn');
     if (!btn) return;
 
-    // Update active filter
     document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
     btn.classList.add('active');
 
-    // Filter devices
     const filter = btn.dataset.filter;
     document.querySelectorAll('.device-card').forEach(card => {
-      card.style.display = filter === 'all' || card.dataset.brand === filter 
-        ? 'block' 
-        : 'none';
+      card.style.display = card.dataset.brand === filter ? 'block' : 'none';
     });
   });
 }

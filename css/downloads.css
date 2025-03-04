@@ -411,3 +411,36 @@ h1 {
   text-overflow: ellipsis;
   max-width: 100%;
 }
+
+.search-container {
+  display: flex;
+  justify-content: center;
+  margin: 20px 0;
+}
+
+.search-wrapper {
+  display: flex;
+  align-items: center;
+  background: var(--md_surface_color);
+  padding: 16px;
+  border-radius: 25px;
+  width: 100%;
+  max-width: 360px;
+}
+
+.search-wrapper i {
+  color: var(--md_accent_color);
+  font-size: 18px;
+  margin-right: 16px;
+}
+
+#deviceSearch {
+  border: none;
+  outline: none;
+  width: 100%;
+  font-size: 16px;
+  color: #fff;
+  margin-top: 4px;
+  font-family: 'Google Sans', sans-serif;
+  background: transparent;
+}
