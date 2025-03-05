@@ -181,7 +181,8 @@ section h2::after {
 }
 
 #header_intro,
-#header_green {
+#header_green,
+#header_game {
   height: 100vh;
 }
 
