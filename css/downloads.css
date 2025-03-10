@@ -515,3 +515,8 @@ h1 {
   from { bottom: 20px; opacity: 1; }
   to { bottom: 10px; opacity: 0; }
 }
+
+#downloads {
+  opacity: 1;
+  margin-top: 60px;
+}

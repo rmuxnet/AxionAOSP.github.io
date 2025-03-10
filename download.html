@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AxionAOSP - Downloads</title>
+    <link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css?family=Space+Grotesk" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="css/main.css" />
+</head>
+
+<body>
+    <section id="downloads">
+        <div class="container">
+            <h1>Experience the Revolution.</h1>
+
+            <div class="search-container">
+                <div class="search-wrapper">
+                    <i class="fas fa-search"></i>
+                    <input type="text" id="deviceSearch" placeholder="Find your device..." />
+                </div>
+            </div>
+
+            <!-- Updated filters container class to 'filter-container' for JS to pick it up -->
+            <div class="brand-filters filter-container">
+                <button data-filter="google" class="filter-btn">Google</button>
+                <button data-filter="samsung" class="filter-btn">Samsung</button>
+                <button data-filter="poco" class="filter-btn">POCO</button>
+                <button data-filter="realme" class="filter-btn">Realme</button>
+                <button data-filter="xiaomi" class="filter-btn">Xiaomi</button>
+                <button data-filter="tecno" class="filter-btn">TECNO</button>
+            </div>
+
+            <div class="downloads-grid">
+                <div class="loading-state">
+                    <i class="fas fa-spinner fa-spin"></i>
+                    Loading devices...
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="modal-overlay" id="modalOverlay">
+        <div class="modal-content">
+            <button class="close-btn" id="closeModalBtn">&times;</button>
+            <div class="modal-body" id="modalBody"></div>
+        </div>
+    </div>
+
+    <script src="js/downloads.js"></script>
+</body>
+
+</html>

@@ -5,6 +5,7 @@
 @import url('features.css');
 /* Add css before here */
 @import url('general.css');
+@import url('home.css');
 @import url('nav.css');
 @import url('downloads.css');
 @import url('responsive.css');

@@ -41,7 +41,7 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 document.addEventListener("DOMContentLoaded", () => {
-  const changelogLinks = document.querySelectorAll('a[href="#changelog"]');
+  const changelogLinks = document.querySelectorAll('a[href*="#changelog"]');
   const changelogModal = document.getElementById("changelogModal");
   const closeChangelogBtn = document.getElementById("closeChangelogBtn");
 
