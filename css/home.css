@@ -198,6 +198,10 @@ section h2::after {
     color: var(--md_accent_color);
 }
 
+.header-start {
+    text-align: left;
+}
+
 @keyframes roll {
     0% {
         transform: translateY(0);
