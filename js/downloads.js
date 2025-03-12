@@ -129,23 +129,37 @@ function saveToCache(key, data) {
  */
 function processDevices(text) {
   try {
-    // Extract devices table section
-    const tableSection = text
-      .split('# 📱 Supported Devices')[1]
-      .split('## 👤 Maintainers')[0];
+    const startIndex = text.indexOf('# 📱 Supported Devices');
+    const endIndex = text.indexOf('## 👤 Maintainers');
+
+    if (startIndex === -1 || endIndex === -1) {
+      console.error('Device table not found in README.');
+      return [];
+    }
+
+    const tableSection = text.slice(startIndex, endIndex);
 
     return tableSection
       .split('\n')
-      .filter(line => line.startsWith('|') && !line.includes('--'))
-      .slice(2) // Skip header rows
+      .filter(line => line.startsWith('|') && line.includes('|'))
+      .slice(2)
       .map(line => {
-        const [, name, codename] = line.split('|').map(c => c.trim());
+        const columns = line.split('|').map(col => col.trim());
+
+        if (columns.length < 3) return null;
+
+        const name = columns[1].replace(/\*\*/g, '');
+        const codename = columns[2].replace(/`/g, '');
+
+        if (!name || !codename) return null;
+
         return {
-          name: name.replace(/\*\*/g, ''), // Remove markdown bold
-          codename: codename.replace(/`/g, ''), // Remove code formatting
-          brand: getDeviceBrand(name), // Determine device brand
+          name,
+          codename,
+          brand: getDeviceBrand(name),
         };
-      });
+      })
+      .filter(Boolean);
   } catch (error) {
     console.error('Error processing devices:', error);
     return [];
@@ -159,48 +173,52 @@ function processDevices(text) {
  * @returns {Promise<Array>} Array of device card elements
  */
 function createDeviceElements(devices, imagesData) {
+  const usedCodenames = new Set();
+
   return Promise.all(
     devices.map(async (device) => {
+      if (usedCodenames.has(device.codename)) {
+        console.warn(`Duplicate codename skipped: ${device.codename}`);
+        return null;
+      }
+      usedCodenames.add(device.codename);
+
       const element = document.createElement('div');
       element.className = 'device-card';
-      element.dataset.brand = device.brand; // For filtering
+      element.dataset.brand = device.brand;
 
-      // Fetch build flavors (GMS/Vanilla)
       const [gms, vanilla] = await Promise.all([
         fetchFlavorDataWithCache(device.codename, 'GMS'),
         fetchFlavorDataWithCache(device.codename, 'VANILLA'),
       ]);
 
-      // Get device image or fallback
       const imageInfo = imagesData.devices.find(d => d.codename === device.codename);
       const imageUrl = imageInfo?.imageUrl || 'img/fallback.png';
 
-      // Generate flavor HTML for modal
       const flavorHtml = `
         ${gms ? renderFlavor('GMS', gms) : ''}
         ${vanilla ? renderFlavor('Vanilla', vanilla) : ''}
       `;
 
-      // Build device card HTML
       element.innerHTML = `
-      <div class="device-header" data-flavors="${encodeURIComponent(flavorHtml)}">
-        <img 
-          src="${imageUrl}"
-          class="device-thumb"
-          alt="${device.name}"
-          loading="lazy"
-          onerror="this.src='img/fallback.png'"
-        />
-        <div class="device-info">
-          <div class="device-name">${device.name}</div>
-          <div class="codename">${device.codename}</div>
+        <div class="device-header" data-flavors="${encodeURIComponent(flavorHtml)}">
+          <img 
+            src="${imageUrl}"
+            class="device-thumb"
+            alt="${device.name}"
+            loading="lazy"
+            onerror="this.src='img/fallback.png'"
+          />
+          <div class="device-info">
+            <div class="device-name">${device.name}</div>
+            <div class="codename">${device.codename}</div>
+          </div>
         </div>
-      </div>
-    `;
+      `;
 
       return element;
     })
-  );
+  ).then(elements => elements.filter(Boolean));
 }
 
 /* ======================
