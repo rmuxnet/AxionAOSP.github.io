@@ -9,6 +9,7 @@
     <link href="https://fonts.googleapis.com/css?family=Space+Grotesk" rel="stylesheet" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="css/main.css" />
+    <link rel="stylesheet" href="css/downloads.css" />
 </head>
 
 <body>
@@ -27,21 +28,13 @@
                 </div>
             </div>
 
-            <!-- Updated filters container class to 'filter-container' for JS to pick it up -->
-            <div class="brand-filters filter-container">
-                <button data-filter="google" class="filter-btn">Google</button>
-                <button data-filter="samsung" class="filter-btn">Samsung</button>
-                <button data-filter="oneplus" class="filter-btn">Oneplus</button>
-                <button data-filter="poco" class="filter-btn">POCO</button>
-                <button data-filter="realme" class="filter-btn">Realme</button>
-                <button data-filter="xiaomi" class="filter-btn">Xiaomi</button>
-                <button data-filter="tecno" class="filter-btn">TECNO</button>
-            </div>
+            <!-- Brand filters container - will be populated by JavaScript -->
+            <div class="brand-filters filter-container"></div>
 
             <div class="downloads-grid">
                 <div class="loading-state">
                     <i class="fas fa-spinner fa-spin"></i>
-                    Loading devices...
+                    <p>Loading devices...</p>
                 </div>
             </div>
         </div>

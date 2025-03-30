@@ -8,46 +8,71 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   try {
     loading.style.display = 'flex';
+    console.log('Fetching device data...');
 
-    const CACHE_EXPIRY = 1800000; // 30 minutes
-    const cachedData = checkCache('device_data');
+    // Direct data fetching without caching
+    try {
+      // Fetch device info from JSON
+      const deviceInfoRes = await fetch('https://raw.githubusercontent.com/AxionAOSP/official_devices/refs/heads/main/dinfo.json');
+      console.log('Device Info Response:', deviceInfoRes.status, deviceInfoRes.statusText);
+      
+      if (!deviceInfoRes.ok) {
+        throw new Error(`Failed to fetch device info: ${deviceInfoRes.status} ${deviceInfoRes.statusText}`);
+      }
 
-    let devices, imagesData;
+      // Get device images from GitHub
+      const imagesRes = await fetch('https://raw.githubusercontent.com/AxionAOSP/official_devices/refs/heads/main/OTA/device_images.json');
+      console.log('Images API Response:', imagesRes.status, imagesRes.statusText);
+      
+      if (!imagesRes.ok) {
+        throw new Error(`Failed to fetch images: ${imagesRes.status} ${imagesRes.statusText}`);
+      }
+      
+      // Parse the JSON data
+      const deviceInfo = await deviceInfoRes.json();
+      const images = await imagesRes.json();
+      
+      console.log(`Loaded ${deviceInfo.devices.length} devices from dinfo.json`);
+      
+      // Validate images data structure
+      if (!images.devices || !Array.isArray(images.devices)) {
+        console.error('Invalid image data structure:', images);
+        throw new Error('Invalid image data structure');
+      }
+      
+      // Process device data
+      const processedDevices = processDevices(deviceInfo.devices);
+      console.log(`Processed ${processedDevices.length} devices`);
+      
+      console.log('Creating device elements...');
+      const deviceElements = await createDeviceElements(processedDevices, images);
+      console.log(`Created ${deviceElements.length} device elements`);
+      
+      // Clear the grid before adding elements
+      grid.innerHTML = '';
+      
+      deviceElements.forEach(element => {
+        // Make all cards visible by default for better UX
+        element.style.display = 'block';
+        grid.appendChild(element);
+      });
 
-    if (cachedData) {
-      ({ devices, imagesData } = cachedData);
-    } else {
-      const [devicesRes, imagesRes] = await Promise.all([
-        fetch('https://raw.githubusercontent.com/AxionAOSP/official_devices/refs/heads/main/README.md'),
-        fetch('https://raw.githubusercontent.com/AxionAOSP/official_devices/refs/heads/main/OTA/device_images.json')
-      ]);
-
-      const [devicesText, images] = await Promise.all([
-        devicesRes.text(),
-        imagesRes.json()
-      ]);
-
-      devices = processDevices(devicesText);
-      imagesData = images;
-      saveToCache('device_data', { devices, imagesData });
+      initFilters();
+      initSearch();
+      initModalLogic();
+    } catch (fetchError) {
+      console.error('Fetch error:', fetchError);
+      throw fetchError;
     }
 
-    const deviceElements = await createDeviceElements(devices, imagesData);
-    deviceElements.forEach(element => {
-      element.style.display = 'none';
-      grid.appendChild(element);
-    });
-
-    initFilters();
-    initSearch();
-    initModalLogic();
-
   } catch (error) {
-    console.error('Error:', error);
+    console.error('Error details:', error);
+    console.error('Stack trace:', error.stack);
     grid.innerHTML = `
       <div class="error">
         <i class="fas fa-exclamation-triangle"></i>
-        <p>Failed to load devices. Please check the 
+        <p>Failed to load devices: ${error.message}</p>
+        <p>Please check the console for details or visit the 
            <a href="https://github.com/AxionAOSP/official_devices" target="_blank">official repository</a>.
         </p>
       </div>
@@ -57,113 +82,26 @@ document.addEventListener('DOMContentLoaded', async () => {
   }
 });
 
-function initSearch() {
-  const searchInput = document.getElementById('deviceSearch');
-
-  searchInput.addEventListener('input', () => {
-    const query = searchInput.value.toLowerCase();
-    const deviceCards = document.querySelectorAll('.device-card');
-
-    deviceCards.forEach(card => {
-      const name = card.querySelector('.device-name').textContent.toLowerCase();
-      const codename = card.querySelector('.codename').textContent.toLowerCase();
-
-      if ((name.includes(query) || codename.includes(query)) && query !== '') {
-        card.style.display = 'block';
-      } else {
-        card.style.display = 'none';
-      }
-    });
+/**
+ * Processes device data from dinfo.json
+ * @param {Array} devices - Array of devices from dinfo.json
+ * @returns {Array} Processed device list with brand info
+ */
+function processDevices(devices) {
+  return devices.map(device => {
+    // Determine brand from device name
+    const brandName = getDeviceBrand(device.device);
+    
+    console.log(`Processed device: ${device.codename} (${device.device}) - Brand: ${brandName} - Maintainer: ${device.maintainer}`);
+    
+    return {
+      name: device.device,
+      codename: device.codename,
+      brand: brandName,
+      maintainer: device.maintainer,
+      support_group: ''  // Default empty support group
+    };
   });
-}
-
-/* ======================
-   CACHE MANAGEMENT
-   ====================== */
-
-/**
- * Checks if valid cached data exists
- * @param {string} key - Local storage key
- * @returns {object|null} Cached data or null
- */
-function checkCache(key) {
-  const cached = localStorage.getItem(key);
-  if (!cached) return null;
-
-  try {
-    const { timestamp, data } = JSON.parse(cached);
-    const CACHE_EXPIRY = 1800000; // 30 minutes
-    return Date.now() - timestamp < CACHE_EXPIRY ? data : null;
-  } catch (e) {
-    return null;
-  }
-}
-
-/**
- * Saves data to local storage with timestamp
- * @param {string} key - Storage key
- * @param {object} data - Data to cache
- */
-function saveToCache(key, data) {
-  try {
-    localStorage.setItem(
-      key,
-      JSON.stringify({
-        timestamp: Date.now(),
-        data,
-      })
-    );
-  } catch (e) {
-    console.warn('Failed to cache data:', e);
-  }
-}
-
-/* ======================
-   DATA PROCESSING
-   ====================== */
-
-/**
- * Parses device data from README Markdown table
- * @param {string} text - README content
- * @returns {Array} Processed device list
- */
-function processDevices(text) {
-  try {
-    const startIndex = text.indexOf('# 📱 Supported Devices');
-    const endIndex = text.indexOf('## 👤 Maintainers');
-
-    if (startIndex === -1 || endIndex === -1) {
-      console.error('Device table not found in README.');
-      return [];
-    }
-
-    const tableSection = text.slice(startIndex, endIndex);
-
-    return tableSection
-      .split('\n')
-      .filter(line => line.startsWith('|') && line.includes('|'))
-      .slice(2)
-      .map(line => {
-        const columns = line.split('|').map(col => col.trim());
-
-        if (columns.length < 3) return null;
-
-        const name = columns[1].replace(/\*\*/g, '');
-        const codename = columns[2].replace(/`/g, '');
-
-        if (!name || !codename) return null;
-
-        return {
-          name,
-          codename,
-          brand: getDeviceBrand(name),
-        };
-      })
-      .filter(Boolean);
-  } catch (error) {
-    console.error('Error processing devices:', error);
-    return [];
-  }
 }
 
 /**
@@ -177,84 +115,101 @@ function createDeviceElements(devices, imagesData) {
 
   return Promise.all(
     devices.map(async (device) => {
-      if (usedCodenames.has(device.codename)) {
-        console.warn(`Duplicate codename skipped: ${device.codename}`);
+      try {
+        if (usedCodenames.has(device.codename)) {
+          console.warn(`Duplicate codename skipped: ${device.codename}`);
+          return null;
+        }
+        usedCodenames.add(device.codename);
+
+        const element = document.createElement('div');
+        element.className = 'device-card';
+        element.dataset.brand = device.brand;
+
+        console.log(`Fetching flavor data for ${device.codename}...`);
+        const [gms, vanilla] = await Promise.all([
+          fetchFlavorData(device.codename, 'GMS'),
+          fetchFlavorData(device.codename, 'VANILLA'),
+        ]);
+        
+        console.log(`Flavor data for ${device.codename}: GMS=${!!gms}, Vanilla=${!!vanilla}`);
+
+        const imageInfo = imagesData.devices.find(d => d.codename === device.codename);
+        if (!imageInfo) {
+          console.warn(`No image found for device: ${device.codename}`);
+        }
+        const imageUrl = imageInfo?.imageUrl || 'img/fallback.png';
+        console.log(`Image URL for ${device.codename}: ${imageUrl}`);
+
+        const flavorHtml = `
+          ${gms ? renderFlavor('GMS', gms) : ''}
+          ${vanilla ? renderFlavor('Vanilla', vanilla) : ''}
+        `;
+
+        element.innerHTML = `
+          <div class="device-header" data-flavors="${encodeURIComponent(flavorHtml)}">
+            <img 
+              src="${imageUrl}"
+              class="device-thumb"
+              alt="${device.name}"
+              loading="lazy"
+              onerror="this.onerror=null; console.error('Failed to load image for ${device.codename}'); this.src='img/fallback.png';"
+            />
+            <div class="device-info">
+              <div class="device-name">${device.name}</div>
+              <div class="codename">${device.codename}</div>
+              <div class="maintainer">by ${device.maintainer}</div>
+            </div>
+          </div>
+        `;
+
+        // Add a flag to indicate if this device has builds available
+        element.dataset.hasBuilds = (!!gms || !!vanilla).toString();
+
+        return element;
+      } catch (error) {
+        console.error(`Error creating element for ${device.codename}:`, error);
         return null;
       }
-      usedCodenames.add(device.codename);
-
-      const element = document.createElement('div');
-      element.className = 'device-card';
-      element.dataset.brand = device.brand;
-
-      const [gms, vanilla] = await Promise.all([
-        fetchFlavorDataWithCache(device.codename, 'GMS'),
-        fetchFlavorDataWithCache(device.codename, 'VANILLA'),
-      ]);
-
-      const imageInfo = imagesData.devices.find(d => d.codename === device.codename);
-      const imageUrl = imageInfo?.imageUrl || 'img/fallback.png';
-
-      const flavorHtml = `
-        ${gms ? renderFlavor('GMS', gms) : ''}
-        ${vanilla ? renderFlavor('Vanilla', vanilla) : ''}
-      `;
-
-      element.innerHTML = `
-        <div class="device-header" data-flavors="${encodeURIComponent(flavorHtml)}">
-          <img 
-            src="${imageUrl}"
-            class="device-thumb"
-            alt="${device.name}"
-            loading="lazy"
-            onerror="this.src='img/fallback.png'"
-          />
-          <div class="device-info">
-            <div class="device-name">${device.name}</div>
-            <div class="codename">${device.codename}</div>
-          </div>
-        </div>
-      `;
-
-      return element;
     })
-  ).then(elements => elements.filter(Boolean));
+  ).then(elements => {
+    const filteredElements = elements.filter(Boolean);
+    console.log(`Created ${filteredElements.length} out of ${devices.length} device elements`);
+    return filteredElements;
+  });
 }
 
 /* ======================
    FLAVOR DATA HANDLING
    ====================== */
 
-const flavorCache = new Map(); // In-memory cache for flavor data
-
 /**
- * Fetches flavor data with caching
+ * Fetches flavor data for a device
  * @param {string} codename - Device codename
  * @param {string} type - Flavor type (GMS/VANILLA)
  * @returns {Promise<object|null>} Flavor data or null
  */
-async function fetchFlavorDataWithCache(codename, type) {
-  const cacheKey = `${codename}_${type}`;
-
-  // Return cached data if available
-  if (flavorCache.has(cacheKey)) {
-    return flavorCache.get(cacheKey);
-  }
-
+async function fetchFlavorData(codename, type) {
   try {
-    const res = await fetch(
-      `https://raw.githubusercontent.com/AxionAOSP/official_devices/main/OTA/${type}/${codename.toLowerCase()}.json`
-    );
-    if (!res.ok) return null;
+    const url = `https://raw.githubusercontent.com/AxionAOSP/official_devices/main/OTA/${type}/${codename.toLowerCase()}.json`;
+    console.log(`Fetching ${type} data from: ${url}`);
+    
+    const res = await fetch(url);
+    if (!res.ok) {
+      console.log(`No ${type} build for ${codename}: ${res.status} ${res.statusText}`);
+      return null;
+    }
 
     const data = await res.json();
-    const result = data.response[0] || null;
-
-    // Update cache
-    flavorCache.set(cacheKey, result);
-    return result;
-  } catch {
-    flavorCache.set(cacheKey, null);
+    if (!data.response || !data.response[0]) {
+      console.log(`Empty ${type} data for ${codename}`);
+      return null;
+    }
+    
+    console.log(`Found ${type} build for ${codename}`);
+    return data.response[0];
+  } catch (error) {
+    console.error(`Error fetching ${type} data for ${codename}:`, error);
     return null;
   }
 }
@@ -349,12 +304,74 @@ function showSnackbar(message) {
   }, 3000);
 }
 
+/**
+ * Initializes search functionality
+ */
+function initSearch() {
+  const searchInput = document.getElementById('deviceSearch');
+  if (!searchInput) {
+    console.error('Search input not found');
+    return;
+  }
+
+  searchInput.addEventListener('input', () => {
+    const query = searchInput.value.toLowerCase().trim();
+    const deviceCards = document.querySelectorAll('.device-card');
+    const activeFilter = document.querySelector('.filter-btn.active')?.dataset.filter;
+    
+    deviceCards.forEach(card => {
+      const name = card.querySelector('.device-name')?.textContent.toLowerCase() || '';
+      const codename = card.querySelector('.codename')?.textContent.toLowerCase() || '';
+      const maintainer = card.querySelector('.maintainer')?.textContent.toLowerCase() || '';
+      
+      // Show card if it matches search and brand filter (if active)
+      const matchesSearch = query === '' || name.includes(query) || codename.includes(query) || maintainer.includes(query);
+      const matchesFilter = !activeFilter || activeFilter === 'all' || card.dataset.brand === activeFilter;
+      
+      card.style.display = (matchesSearch && matchesFilter) ? 'block' : 'none';
+    });
+  });
+}
 
 /**
  * Initializes brand filtering buttons
  */
 function initFilters() {
-  document.querySelector('.filter-container').addEventListener('click', (event) => {
+  const filterContainer = document.querySelector('.filter-container');
+  if (!filterContainer) {
+    console.error('Filter container not found');
+    return;
+  }
+  
+  // Get all unique brands from the device cards
+  const brands = new Set();
+  document.querySelectorAll('.device-card').forEach(card => {
+    if (card.dataset.brand) {
+      brands.add(card.dataset.brand);
+    }
+  });
+  
+  // Create filter buttons dynamically
+  if (brands.size > 0) {
+    // Add "All" button
+    const allBtn = document.createElement('button');
+    allBtn.className = 'filter-btn active';
+    allBtn.dataset.filter = 'all';
+    allBtn.textContent = 'All';
+    filterContainer.appendChild(allBtn);
+    
+    // Add brand buttons
+    Array.from(brands).sort().forEach(brand => {
+      const btn = document.createElement('button');
+      btn.className = 'filter-btn';
+      btn.dataset.filter = brand;
+      btn.textContent = brand.charAt(0).toUpperCase() + brand.slice(1);
+      filterContainer.appendChild(btn);
+    });
+  }
+  
+  // Add click event listener
+  filterContainer.addEventListener('click', (event) => {
     const btn = event.target.closest('.filter-btn');
     if (!btn) return;
 
@@ -363,8 +380,18 @@ function initFilters() {
 
     const filter = btn.dataset.filter;
     document.querySelectorAll('.device-card').forEach(card => {
-      card.style.display = card.dataset.brand === filter ? 'block' : 'none';
+      if (filter === 'all') {
+        card.style.display = 'block';
+      } else {
+        card.style.display = card.dataset.brand === filter ? 'block' : 'none';
+      }
     });
+    
+    // Clear search when changing filter
+    const searchInput = document.getElementById('deviceSearch');
+    if (searchInput) {
+      searchInput.value = '';
+    }
   });
 }
 
@@ -372,34 +399,27 @@ function initFilters() {
    UTILITIES
    ====================== */
 
-const brandCache = new Map(); // Cache for brand detection
-
 /**
  * Determines device brand from name
  * @param {string} deviceName - Full device name
  * @returns {string} Brand identifier
  */
 function getDeviceBrand(deviceName) {
-  if (brandCache.has(deviceName)) {
-    return brandCache.get(deviceName);
-  }
-
   // Brand detection patterns
   const brands = {
     google: /Google Pixel/i,
-    samsung: /Galaxy/i,
+    samsung: /Galaxy|Samsung/i,
     poco: /POCO/i,
     realme: /Realme/i,
-    xiaomi: /Xiaomi|Redmi/i,
+    xiaomi: /Xiaomi|Redmi|Mi/i,
     tecno: /TECNO/i,
-    motorola: /Motorola/i,
-    oneplus: /Oneplus/i,
+    motorola: /Motorola|Moto/i,
+    oneplus: /Oneplus|OnePlus/i,
   };
 
   const brand = Object.entries(brands).find(([_, regex]) =>
     regex.test(deviceName)
   )?.[0] || 'other';
 
-  brandCache.set(deviceName, brand);
   return brand;
 }
