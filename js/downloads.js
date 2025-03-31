@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     // Direct data fetching without caching
     try {
       // Fetch unified device info from JSON
-      const deviceInfoRes = await fetch('https://raw.githubusercontent.com/rmuxnet/AxionAOSP.github.io/refs/heads/main/devices.json');
+      const deviceInfoRes = await fetch('https://raw.githubusercontent.com/AxionAOSP/official_devices/refs/heads/main/dinfo.json');
       console.log('Device Info Response:', deviceInfoRes.status, deviceInfoRes.statusText);
       
       if (!deviceInfoRes.ok) {
