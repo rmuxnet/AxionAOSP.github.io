@@ -12,17 +12,17 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     // Direct data fetching without caching
     try {
-      // Fetch device info from JSON
-      const deviceInfoRes = await fetch('https://raw.githubusercontent.com/AxionAOSP/official_devices/refs/heads/main/dinfo.json');
+      // Fetch unified device info from JSON
+      const deviceInfoRes = await fetch('https://raw.githubusercontent.com/rmuxnet/AxionAOSP.github.io/refs/heads/main/devices.json');
       console.log('Device Info Response:', deviceInfoRes.status, deviceInfoRes.statusText);
       
       if (!deviceInfoRes.ok) {
         throw new Error(`Failed to fetch device info: ${deviceInfoRes.status} ${deviceInfoRes.statusText}`);
       }
-
-      // Get device images from GitHub
-      const imagesRes = await fetch('https://raw.githubusercontent.com/AxionAOSP/official_devices/refs/heads/main/OTA/device_images.json');
-      console.log('Images API Response:', imagesRes.status, imagesRes.statusText);
+      
+      // Parse the JSON data
+      const deviceData = await deviceInfoRes.json();
+      
       
       if (!imagesRes.ok) {
         throw new Error(`Failed to fetch images: ${imagesRes.status} ${imagesRes.statusText}`);
