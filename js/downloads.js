@@ -1,6 +1,6 @@
 /**
  * Main entry point - runs when DOM is fully loaded
- * Handles device data fetching, processing, and UI rendering
+ * Handles device data fetching, processing, and UI rendering : should work fine now i think using the unified .json
  */
 document.addEventListener('DOMContentLoaded', async () => {
   const grid = document.querySelector('.downloads-grid');
