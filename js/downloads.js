@@ -172,25 +172,47 @@ function createDeviceElements(devices) {
  */
 async function fetchFlavorData(codename, type) {
   try {
-    const url = `https://raw.githubusercontent.com/AxionAOSP/official_devices/main/OTA/${type}/${codename.toLowerCase()}.json`;
-    console.log(`Fetching ${type} data from: ${url}`);
+    // Try multiple case variations of the codename
+    const caseVariations = [
+      codename,                // Original case
+      codename.toLowerCase(),  // Lowercase
+      codename.toUpperCase(),  // Uppercase
+      codename.charAt(0).toUpperCase() + codename.slice(1).toLowerCase(), // Title case
+    ];
     
-    const res = await fetch(url);
-    if (!res.ok) {
-      console.log(`No ${type} build for ${codename}: ${res.status} ${res.statusText}`);
-      return null;
-    }
-
-    const data = await res.json();
-    if (!data.response || !data.response[0]) {
-      console.log(`Empty ${type} data for ${codename}`);
-      return null;
+    // Remove any duplicates that might occur
+    const uniqueVariations = [...new Set(caseVariations)];
+    
+    console.log(`Trying ${uniqueVariations.length} case variations for ${codename} (${type})`);
+    
+    // Try each case variation until one works
+    for (const variation of uniqueVariations) {
+      const url = `https://raw.githubusercontent.com/AxionAOSP/official_devices/main/OTA/${type}/${variation}.json`;
+      console.log(`Attempting to fetch from: ${url}`);
+      
+      try {
+        const res = await fetch(url);
+        if (res.ok) {
+          console.log(`Success! Found ${type} build for ${codename} using case: ${variation}`);
+          const data = await res.json();
+          
+          if (!data.response || !data.response[0]) {
+            console.log(`Found ${type} JSON for ${codename} but it's empty or invalid`);
+            continue; // Try next variation
+          }
+          
+          return data.response[0];
+        }
+      } catch (variationError) {
+        console.warn(`Failed to fetch ${variation} variation:`, variationError.message);
+        // Continue to next variation
+      }
     }
     
-    console.log(`Found ${type} build for ${codename}`);
-    return data.response[0];
+    console.log(`No ${type} build found for ${codename} after trying all case variations`);
+    return null;
   } catch (error) {
-    console.error(`Error fetching ${type} data for ${codename}:`, error);
+    console.error(`Error in fetchFlavorData for ${codename} (${type}):`, error);
     return null;
   }
 }
